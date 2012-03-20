@@ -1,0 +1,14 @@
+{
+  "name": "evntive",
+  "version": "0.0.1",
+  "description": "make your events a memory",
+  "author": "Kevin Sakhuja <kevin.sakhuja@gmail.com>",
+  "dependencies": {
+    "express": "latest",
+    "jade": "latest"
+  },
+  "devDependencies": {
+  	"node-inspector": "latest"
+  },
+  "engine": "node >= 0.6.13"
+}
