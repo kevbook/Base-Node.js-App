@@ -56,6 +56,7 @@ app.get('/*', function(req, res, next) {
 
 app.get('/', routes.index);
 
+
 /* -- main routes -- */
 app.get('/host/:id([0-9]+)', routes.host);
 app.get('/event/:id([0-9]+)', routes.event);
@@ -93,7 +94,8 @@ app.get('/signup', routes.nav);
 app.get('/login', routes.nav);
 
 //The 404 Route (ALWAYS Keep this as the last route)
-app.all('/*', routes.notFound);
+app.all('(/*)?', routes.notFound);
+
 
 //A Route for Creating a 500 Error (Useful to keep around)
 /*
