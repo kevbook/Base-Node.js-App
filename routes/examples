@@ -1,0 +1,83 @@
+  function validate_login(req, res, next) {
+    if (req.session.user) {
+      next();
+    } else {
+      req.session.error = 'Access denied!';
+      res.redirect('/login');
+    }
+  };
+
+
+  
+/*
+  app.get('/restricted', helper.validate_login, function(req, res){
+    res.send('Wahoo! restricted area');
+  });
+*/
+
+/* -- main routes -- */
+app.get('/host/:id([0-9]+)', routes.host);
+app.get('/event/:id([0-9]+)', routes.event);
+app.get('/user/:id([0-9]+)', routes.user);
+
+/* -- event action -- */
+app.post('/event/:id([0-9]+)/:action?', routes.event_action);
+
+
+/*
+
+app.all('/users', user.list);
+app.all('/user/:id/:op?', user.load);
+app.get('/user/:id', user.view);
+app.get('/user/:id/view', user.view);
+app.get('/user/:id/edit', user.edit);
+app.put('/user/:id/edit', user.update);
+
+*/
+
+
+
+
+//The 404 Route (ALWAYS Keep this as the last route)
+app.all('(/*)?', routes.notFound);
+
+
+//A Route for Creating a 500 Error (Useful to keep around)
+/*
+app.get('/500', function(req, res){
+    throw new Error('This is a 500 Error');
+});
+*/
+
+
+
+
+/*
+
+app.get('/', function(req, res) {
+    articleProvider.findAll(function(error, docs) {
+        res.render('blog', {locals: {docs: docs}});
+    });
+});
+ 
+app.get('/blog/new', function (req, res) {
+    res.render('blog_new', {locals: {title: 'New Blog Item'}});
+});
+ 
+app.post('/blog/new', function (req, res) {
+    console.log('The provided title is : %s',req.body.new_title);
+    articleProvider.save({title: req.body.new_title, body: req.body.new_body},
+            function(error, docs) {
+                res.redirect('/');
+            });
+});
+*/
+
+
+
+exports.notFound = function(req, res){
+	res.render('errors/404', { 
+  		title: '404 error' 
+  	}
+  	, 404);
+};

@@ -5,7 +5,10 @@
   "author": "Kevin Sakhuja <kevin.sakhuja@gmail.com>",
   "dependencies": {
     "express": "latest",
-    "jade": "latest"
+    "jade": "latest",
+    "postageapp": "latest",
+    "everyauth": "latest",
+    "loggly": "latest"
   },
   "devDependencies": {
   	"node-inspector": "latest"

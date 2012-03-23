@@ -1,0 +1,176 @@
+/*
+function appErrors(app){
+
+	app.use(function(req){
+		logger: 
+
+
+	});
+
+	var client = loggly.createClient({subdomain:'kevbook'});
+	//client.log('9c7b5527-f1ed-4968-b36a-7e7e02b4f235', 'last teste....', function(err, result){
+	//		console.log(result);
+//	});
+
+
+	app.use(function(req, res, next){
+	    res.status(404);
+	    res.render('404', { url: req.url });
+	    return;
+	}
+
+		function footer(req, res){
+		res.render('nav/' + req.url, { 
+	 		title: req.url 
+	  });
+	};
+
+
+
+}
+
+function appHelpers(app){
+
+  app.dynamicHelpers({
+    request: function(req){
+      return req;
+    },
+
+    cool: function(){
+    	console.log('ss');
+    }
+
+  });
+
+  console.log(app.dynamicHelpers[cool]);
+  //dynamicViewHelpers(){
+
+
+  //}
+
+}
+
+/*
+  
+  // Some dynamic view helpers
+  app.dynamicHelpers({
+    request: function(req){
+      return req;
+    },
+
+   	session: function(req, res){
+    	return req.session;
+  	},
+
+  	logger: function(){
+  		console.log("shit");
+  	}
+
+  });
+
+  app.helpers({
+    name: function(first, last){ return first + ', ' + last };
+	})
+
+}
+*/
+
+	/* https://kevbook.loggly.com */
+
+//  var client = loggly.createClient({subdomain:'kevbook'});
+	//client.log('9c7b5527-f1ed-4968-b36a-7e7e02b4f235', 'last teste....', function(err, result){
+	//		console.log(result);
+//	});
+
+
+
+
+
+
+function bootApplication(app) {
+
+
+  // Example 500 page
+  app.use(function(err, req, res, next){
+    res.render('500');
+  });
+
+  // Example 404 page via simple Connect middleware
+  app.use(function(req, res){
+    res.render('404');
+  });
+
+
+
+  // Some dynamic view helpers
+  app.dynamicHelpers({
+    request: function(req){
+      return req;
+    },
+
+    hasMessages: function(req){
+      if (!req.session) return false;
+      return Object.keys(req.session.flash || {}).length;
+    },
+
+    messages: function(req){
+      return function(){
+        var msgs = req.flash();
+        return Object.keys(msgs).reduce(function(arr, type){
+          return arr.concat(msgs[type]);
+        }, []);
+      }
+    }
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+function bootApplication(app) {
+  app.use(express.logger(':method :url :status'));
+
+
+  // Some dynamic view helpers
+  app.dynamicHelpers({
+    request: function(req){
+      return req;
+    },
+
+    hasMessages: function(req){
+      if (!req.session) return false;
+      return Object.keys(req.session.flash || {}).length;
+    },
+
+    messages: function(req){
+      return function(){
+        var msgs = req.flash();
+        return Object.keys(msgs).reduce(function(arr, type){
+          return arr.concat(msgs[type]);
+        }, []);
+      }
+    }
+  });
+}
+
+
+
+
+
+function bootApplication(app) {
+
+
+
+
+/* --- loading views, config and routes --- */
