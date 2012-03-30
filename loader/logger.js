@@ -1,36 +1,51 @@
-const express = require('express'),
-			loggly 	= require('loggly');
-
 module.exports = function(app){
 	
-	switch(app.settings.env){
-		case 'production':
-			// loggly loger for prod - kevbook.loggly.com
-			var logger = loggly.createClient({subdomain:'kevbook'});
-			app.use(express.errorHandler());
-	  	break;
+	var express = require('express'),
+			loggly 	= require('loggly'),
+			client, 
+			logger;
+			
 
-	  default: // development
-	  	// console logger for dev:
-	  	var logger = function(log){console.log(log);}
+  app.configure('development', function(){
+	 		logger = function(){
+	  		var args = Array.prototype.slice.call(arguments);
+	  		console.log(args[1]);
+	  	};
+	  	
 	  	app.use(express.logger('short'));
+	});
 
-			app.use(express.errorHandler({ 
-	  		dumpExceptions: true, 
-	  		showStack: true 
-	  	}));
-  }
+	app.configure('production', function(){
+		client = loggly.createClient({subdomain:'kevbook'});
+		logger = function(input, msg, printAlso){
+			client.log(input, msg);
+			if(printAlso){
+				console.log(msg);
+			}
+		};	
+	});
 
   app.set('logger', logger);
+  app.set('errorCodes', errorCodes());
+};
 
 
-/*
-  // Catch All exception handler, log error and exit
-process.on('uncaughtException', function (err) {
-  console.log('Uncaught exception: ' + err + err.stack);
-  process.exit()
-});
-*/
 
-//16d836cb-84ab-44e3-a0cc-954d75646fcf
+/**
+ * 
+ * Mappings of the errors to input tokens for centralized cloud logging. 
+ * Input tokens are setup on loggly.com 
+ * 
+ * @return {object} errors and loggly input tokens
+ */
+function errorCodes(){
+	var errorCodes;
+
+	return errorCodes = {
+			serverStart	: '2e4a1908-87f5-4334-b710-a03e061f2a54',
+			notFound 		: '123',
+			serverError	: 'xyz',
+			dbConn			: 'wxy',
+			authFailed	: '123'
+	};
 }

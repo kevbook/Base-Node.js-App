@@ -1,9 +1,12 @@
-// module dependencies
-const express = require('express')
-		,	fs 		  = require('fs')
-  	, appRoot = __dirname
-  	, port    = process.env.PORT || 3000;
+var express = require('express')
+	,	fs 		  = require('fs')
+  , appRoot = __dirname
+  , port    = process.env.PORT || 3000;
 
+
+/** 
+ * server setup
+ */
 
 // private key and certificate for https server
 var credentials = {
@@ -12,13 +15,19 @@ var credentials = {
 };
 
 // https server 
-var app = module.exports = express.createServer(credentials);
-app.listen(port);
+var app = express.createServer(credentials).listen(port);
 
 
-// ****** Loading the booter ******
-require(appRoot + '/loader/boot')(app, appRoot);
+/**
+ * boot app loader
+ */
+require('./loader/logger')(app);
+require('./loader/config')(app, appRoot);
+require('./loader/middleware')(app, appRoot);
+require('./loader/routes')(app, appRoot);
 
 
-app.listen(3000);
-console.log("server started on port %d in %s mode", port, app.settings.env);
+
+var logger     = app.set('logger');
+var errorCodes = app.set('errorCodes');
+logger(errorCodes.serverStart, 'server started on port ' + port);

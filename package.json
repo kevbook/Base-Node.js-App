@@ -1,14 +1,16 @@
 {
-  "name": "evntive",
+  "name": "base app",
   "version": "0.0.1",
-  "description": "make your events a memory",
+  "description": "base app to get you started",
   "author": "Kevin Sakhuja <kevin.sakhuja@gmail.com>",
   "dependencies": {
     "express": "latest",
     "jade": "latest",
     "postageapp": "latest",
     "everyauth": "latest",
-    "loggly": "latest"
+    "loggly": "latest",
+    "connect-redis": "latest",
+    "connect-form": "latest"
   },
   "devDependencies": {
   	"node-inspector": "latest"

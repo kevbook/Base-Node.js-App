@@ -1,25 +1,25 @@
-module.exports = function(app, appRoot){
-	
-	app.use(app.router);
-	var routes = require (appRoot + '/routes');
+module.exports = function(app, appRoot) {
 
-	// home
-	app.all('/', routes.index); 
-
-	// site nav 
-	app.get('/tour', routes.nav);
-	app.get('/pricing', routes.nav);
-	app.get('/signup', routes.nav);
-	app.get('/login', routes.nav);
-
-	// site footer
-  app.get('/about', routes.footer);
-  app.get('/press', routes.footer);
-	app.get('/contact', routes.footer);
-	app.get('/privacy', routes.footer);
-	app.get('/terms', routes.footer);
+	var index 	= require(appRoot + '/routes/index'),
+			nav 		= require(appRoot + '/routes/nav'),
+			footer 	= require(appRoot + '/routes/footer'),
+			user 		= require(appRoot + '/routes/user');
 
 
-  // Route notFound 404 page via Connect middleware
-  app.use(routes.notFound);
-}
+	// home page
+  app.all('/', index.index); 
+
+  // site nav 
+  app.get('/tour', nav.tour);
+  app.get('/pricing', nav.pricing);
+  app.get('/signup', nav.signup);
+  app.get('/login', nav.login);
+
+  // site footer
+  app.get('/about', footer.about);
+  app.get('/press', footer.press);
+  app.get('/contact', footer.contact);
+  app.get('/privacy', footer.privacy);
+  app.get('/terms',  footer.terms);
+
+};
