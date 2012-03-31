@@ -18,9 +18,9 @@ html(lang='en')
 
 		title= title  
 
-		//link(rel='shortcut icon', href='favicon.png')
-		//link(rel='apple-touch-icon', href='apple-touch-icon-precomposed.png')
-		//link(rel='stylesheet', href='stylesheets/style.css')
+		link(rel='shortcut icon', href='favicon.png')
+		link(rel='apple-touch-icon', href='apple-touch-icon-precomposed.png')
+		link(rel='stylesheet', href=assetUrl + 'stylesheets/style.css' + assetVersion)
 
 	body
 		//if lt IE 9
@@ -37,6 +37,7 @@ html(lang='en')
 					li: a(href="/login") Login
 
 		section.wrapper!= body
+		input(type='hidden', value=token)
 
 		footer.footer
 			nav.wrapper.footer-nav

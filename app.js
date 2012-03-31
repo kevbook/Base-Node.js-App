@@ -1,7 +1,8 @@
-var express = require('express')
-	,	fs 		  = require('fs')
-  , appRoot = __dirname
-  , port    = process.env.PORT || 3000;
+var cluster = require('cluster'),
+		express = require('express'),
+		fs 		  = require('fs'),
+		appRoot = __dirname,
+		port    = process.env.PORT || 3000;
 
 
 /** 
@@ -30,4 +31,4 @@ require('./loader/routes')(app, appRoot);
 
 var logger     = app.set('logger');
 var errorCodes = app.set('errorCodes');
-logger(errorCodes.serverStart, 'server started on port ' + port);
+logger(errorCodes.serverStart, 'server started on port ' + port, true);

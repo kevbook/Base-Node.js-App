@@ -9,8 +9,18 @@ module.exports = function(app, appRoot){
 			fb,
 			twitter;
 
+	// views	
+	app.set('views', appRoot + '/views');
+	app.set('view engine', 'jade');
 
 	app.configure('development', function(){
+		// view global
+		app.set('view options', {
+    	pretty: true,
+    	assetVersion: '?v1',
+    	assetUrl: ''
+  	});
+
 		MONGO_DB = 'mongodb://hackd:hackd@staff.mongohq.com:10045/hackd';
 		basepath = 'https://localhost:3000';
   	fb 			 = {appId: '1234', appSecret: '123'};
@@ -19,6 +29,12 @@ module.exports = function(app, appRoot){
 
 
 	app.configure('production', function(){
+		// view global
+		app.set('view options', {
+    	assetVersion: '?v1',
+    	assetUrl: 'https://s3.amazonaws.com/hackd/assets/'
+  	});
+
 		MONGO_DB = process.env.MONGO_DB || 'mongodb://hackd:hackd@staff.mongohq.com:10045/hackd';
 		basepath = process.env.BASEPATH || 'https://localhost:3000',
   	fb 			 = {appId: '1234', appSecret: '123'};
@@ -26,11 +42,6 @@ module.exports = function(app, appRoot){
 	});
 
 
-	// views	
-	app.set('views', appRoot + '/views');
-	app.set('view engine', 'jade');
-
-	
 	// db.
 	db = mongoose.connect(MONGO_DB);
 
