@@ -6,10 +6,8 @@
   "dependencies": {
     "express": "latest",
     "jade": "latest",
-    "postageapp": "latest",
-    "everyauth": "latest",
     "loggly": "latest",
-    "connect-redis": "latest",
+    "mongoose": "latest",
     "connect-form": "latest"
   },
   "devDependencies": {

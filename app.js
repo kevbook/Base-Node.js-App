@@ -22,11 +22,16 @@ var app = express.createServer(credentials).listen(port);
 /**
  * boot app loader
  */
-require('./loader/logger')(app);
-require('./loader/config')(app, appRoot);
-require('./loader/middleware')(app, appRoot);
-require('./loader/routes')(app, appRoot);
+require('./config/logger')(app);
+require('./config/config')(app, appRoot);
+require('./config/middleware')(app, appRoot);
+require('./config/mailer')(app);
+require('./config/router')(app, appRoot);
 
+
+/* TESTING EMAIL */
+var sendEmail = app.set('sendEmail', sendEmail);
+sendEmail({recipients:'kevin.sakhuja@gmail.com'});
 
 
 var logger     = app.set('logger');
