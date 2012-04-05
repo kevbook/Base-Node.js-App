@@ -1,5 +1,5 @@
 {
-  "name": "base app",
+  "name": "base-app",
   "version": "0.0.1",
   "description": "base app to get you started",
   "author": "Kevin Sakhuja <kevin.sakhuja@gmail.com>",
@@ -17,5 +17,5 @@
   },
   "devDependencies": {
   	"node-inspector": "latest"
-  },
+  }
 }

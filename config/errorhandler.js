@@ -1,5 +1,5 @@
 module.exports = function(app){
-	logger = require('./logger');
+	logger = require('../lib/logger');
 
 	return {
 

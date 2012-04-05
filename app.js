@@ -1,6 +1,6 @@
 var express = require('express'),
 		fs 		  = require('fs'),
-		logger	= require('./config/logger'),
+		logger	= require('./lib/logger'),
 		appRoot = __dirname,
 		port    = process.env.PORT || 3000;
 
@@ -25,4 +25,5 @@ require('./config/router')(app, appRoot);
 //var mailer = require('./lib/mailer');
 //mailer.send({});
 
-logger.log('serverStart', 'server started on port ' + port, true);
+
+logger.log('server_start', 'server started on port ' + port, true);
