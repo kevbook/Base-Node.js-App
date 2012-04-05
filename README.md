@@ -35,7 +35,7 @@ To monitor changes in the node.js app and automatically restart the server - **[
 ***
 
 #### HTTPS Certs 
-**Http server** certificates and keys are located in the `keys` directory. New certificates can be created for dev purposes:
+**Http server** certificates and keys are located in the `config/keys` directory. New certificates can be created for dev purposes:
 	
 	openssl genrsa -out localhost.key 1024
 	
@@ -50,7 +50,7 @@ To monitor changes in the node.js app and automatically restart the server - **[
 ***
 
 #### Environment variables
-**DB_URL** variable
+**MONGO_DB** variable
 
 	$ MONGO_DB=mongodb://localhost/dbname     
 
@@ -59,21 +59,16 @@ To monitor changes in the node.js app and automatically restart the server - **[
 
 	$ NODE_ENV=production
 
-
-**BASEPATH** site's path
-	
-	$BASEPATH=https://localhost:3000
-
 ***
 
 #### Error Logging 
 
 Uses console logger for **development environment**
 
-Uses http://loggly.com logger for **production environment**
+Uses [loggly.com](http://loggly.com) for **production environment**
 
-	var logger = app.set('logger');
-	logger('logger-token', 'some message you want to log', printAlso);
+	logger = require('./logger');
+	logger.log('logger-token', 'some message you want to log', printAlso);
 
 	// printAlso is optional passed when you want to send 
 	// the log message to central cloud logger as well as 
@@ -81,6 +76,33 @@ Uses http://loggly.com logger for **production environment**
 
 
 ***
+
+#### Mailer
+
+Uses [postageapp.com](http://postageapp.com) service to send emails out for forgot password etc.
+
+	var mailer = require('./lib/mailer');
+    var options = { 
+        recipients: "kevin.sakhuja@gmail.com",
+        subject: "Subject Line",
+        content: {
+        'text/html': '<strong>Sample bold content.</strong>',
+            'text/plain': 'Plain text goes here'
+        },
+        variables: {
+            'variable': 'Variable value',
+            'variable2': 'Another variable'
+        }
+    };
+
+	// send out email
+	mailer.send(options);
+ 
+	// recipients can be an array
+	recipients: ["email1@address.com", "email2@address.com"];
+
+***
+
 
 ### MIT License
 Copyright © 2012 Kevin Sakhuja
