@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "base app to get you started",
   "author": "Kevin Sakhuja <kevin.sakhuja@gmail.com>",
+  "engine": "node >= 0.6.13",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kevbook/Base-Node.js-App.git"
+  },
   "dependencies": {
     "express": "latest",
     "jade": "latest",
@@ -13,5 +18,4 @@
   "devDependencies": {
   	"node-inspector": "latest"
   },
-  "engine": "node >= 0.6.13"
 }

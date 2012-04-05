@@ -1,34 +1,28 @@
-module.exports = function(app){
-	
-	var express = require('express'),
-			loggly 	= require('loggly'),
-			client, 
-			logger;
-			
+exports.log = function(input, msg, printAlso){
 
-  app.configure('development', function(){
-	 		logger = function(){
-	  		var args = Array.prototype.slice.call(arguments);
-	  		console.log(args[1]);
-	  	};
-	  	
-	  	app.use(express.logger('short'));
-	});
+	var config = require('./config')(),
+			loggly = require('loggly'),
+			errorCodes = errCodes(),
+			client;
 
-	app.configure('production', function(){
-		client = loggly.createClient({subdomain:'kevbook'});
-		logger = function(input, msg, printAlso){
-			client.log(input, msg);
+	if(errorCodes[input] === undefined){
+		console.log('Error: logger input-token is invalid');
+	}else{
+
+		if(process.env.NODE_ENV === undefined){
+		  console.log(msg);
+		}else{
+			client = loggly.createClient(config.loggly);
+			client.log(errorCodes[input], msg);
+
+			// prints to console as well.
 			if(printAlso){
-				console.log(msg);
+					console.log(msg);
 			}
-		};	
-	});
+		}
+	}
 
-  app.set('logger', logger);
-  app.set('errorCodes', errorCodes());
 };
-
 
 
 /**
@@ -38,14 +32,13 @@ module.exports = function(app){
  * 
  * @return {object} errors and loggly input tokens
  */
-function errorCodes(){
-	var errorCodes;
-
-	return errorCodes = {
+function errCodes(){
+	return {
 			serverStart	: '2e4a1908-87f5-4334-b710-a03e061f2a54',
 			notFound 		: '123',
 			serverError	: 'xyz',
 			dbConn			: 'wxy',
-			authFailed	: '123'
+			authFailed	: '123',
+			emailError	: '123'
 	};
 }

@@ -1,25 +1,24 @@
 module.exports = function(app){
-
-	var logger     = app.set('logger');
-	var errorCodes = app.set('errorCodes');
+	logger = require('./logger');
 
 	return {
-		
+
 		// 404 not found
 		notFound: function(req, res){
 			// log error:
-			logger(errorCodes.notFound, 'notFound 404 error: ' + req.url);
+			logger.log('notFound', '404 error: ' + req.url);
 
 			res.render('errors/404', { 
 				status: 404,
-		 		title: 'not Found 404 :('
+		 		locals:{
+		 			title: 'not Found 404 :('
+		 		}
 		  });
 		},
 
-
 		serverError: function(err, req, res, next){
 			// log error:
-			logger(errorCodes.serverError, err.stack);
+			logger.log('serverError', err.stack);
 
 			// send output based on type of request json vs html
 			var accept = req.headers.accept || '';
@@ -40,5 +39,4 @@ module.exports = function(app){
 		}
 
 	};
-
 };

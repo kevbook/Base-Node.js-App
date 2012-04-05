@@ -21,5 +21,4 @@ module.exports = function(app, appRoot) {
   app.get('/contact', footer.contact);
   app.get('/privacy', footer.privacy);
   app.get('/terms',  footer.terms);
-
 };
