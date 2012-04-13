@@ -1,9 +1,11 @@
 {
   "name": "base-app",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "description": "base app to get you started",
   "author": "Kevin Sakhuja <kevin.sakhuja@gmail.com>",
-  "engine": "node >= 0.6.13",
+  "engines": {
+    "node": ">= 0.6.0 < 0.7.0"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:kevbook/Base-Node.js-App.git"
@@ -13,9 +15,22 @@
     "jade": "latest",
     "loggly": "latest",
     "mongoose": "latest",
-    "connect-form": "latest"
+    "connect-mongoose": "latest",
+    "gravatar": "latest",
+    "express-form": "latest",
+    "postage": "latest",
+    "subdomain":"latest"
   },
   "devDependencies": {
-  	"node-inspector": "latest"
+    "node-inspector": "latest",
+    "nodetime": "latest"
+  },
+  "domains": [
+    "hackd.it",
+    "www.hackd.it"
+  ],
+  "subdomain": "hackd",
+  "scripts": {
+    "start": "app.js"
   }
 }

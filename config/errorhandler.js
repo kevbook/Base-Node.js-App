@@ -1,12 +1,16 @@
 module.exports = function(app){
+	
+	/**
+	 * module dependencies 
+	 */
+
 	logger = require('../lib/logger');
 
 	return {
 
-		// 404 not found
 		notFound: function(req, res){
 			// log error:
-			logger.log('notFound', '404 error: ' + req.url);
+			logger.log('not_found', '404 error: ' + req.url);
 
 			res.render('errors/404', { 
 				status: 404,
@@ -15,10 +19,11 @@ module.exports = function(app){
 		 		}
 		  });
 		},
-
+		
 		serverError: function(err, req, res, next){
 			// log error:
-			logger.log('serverError', err.stack);
+			(err.status != 500) ? 
+				logger.log('server_error', err) : logger.log('server_error', err.stack);
 
 			// send output based on type of request json vs html
 			var accept = req.headers.accept || '';

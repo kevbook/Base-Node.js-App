@@ -1,5 +1,11 @@
-exports.index = function(req, res){	
-	res.render('home', { 
- 		title: 'home'
+module.exports = function(app){
+
+	app.get('/all', function(req, res){
+		res.render('home', { 
+	 		locals:{
+	 			title: 'home'
+			}
+	  });
   });
+
 };

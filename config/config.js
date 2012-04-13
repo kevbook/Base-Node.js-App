@@ -6,19 +6,23 @@ module.exports = function(){
 
 	devConfig = {
 		mongodb: {
-			path: process.env.MONGO_DB || 'mongodb://hackd:hackd@staff.mongohq.com:10045/hackd'
+			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/node_test'
 		},
 		loggly: {
 			subdomain:'kevbook'
 		},
 		fb: {
-    	appId: '123',
-    	appSecret: '123'
+    	appId: '111565172259433',
+    	appSecret: '85f7e0a0cc804886180b887c1f04a3c1'
 		},
 		twitter: {
-			appId: '123',
-    	appSecret: '123'
+			consumerKey: 'JLCGyLzuOK1BjnKPKGyQ',
+    	consumerSecret: 'GNqKfPqtzOcsCtFbGTMqinoATHvBcy1nzCTimeA9M0'
 		},
+		instagram: {
+      clientId: 'be147b077ddf49368d6fb5cf3112b9e0',
+      clientSecret: 'b65ad83daed242c0aa059ffae42feddd'
+    },
 		postageapp: {
 			apiKey: 'MQNVrlQalbQQHJLFmfoDUSreLsYemgYp'
 		},
@@ -29,21 +33,26 @@ module.exports = function(){
 		},
 	};
 
+
 	prodConfig = {
 		mongodb: {
-			path: process.env.MONGO_DB || 'mongodb://hackd:hackd@staff.mongohq.com:10045/hackd'
+			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/node_test'
 		},
 		loggly: {
 			subdomain:'kevbook'
 		},
 		fb: {
-    	appId: '123',
-    	appSecret: '123'
+    	appId: '111565172259433',
+    	appSecret: '85f7e0a0cc804886180b887c1f04a3c1'
 		},
 		twitter: {
-			appId: '123',
-    	appSecret: '123'
+			consumerKey: 'JLCGyLzuOK1BjnKPKGyQ',
+    	consumerSecret: 'GNqKfPqtzOcsCtFbGTMqinoATHvBcy1nzCTimeA9M0'
 		},
+		instagram: {
+      clientId: 'be147b077ddf49368d6fb5cf3112b9e0',
+      clientSecret: 'b65ad83daed242c0aa059ffae42feddd'
+    },
 		postageapp: {
 			apiKey: 'MQNVrlQalbQQHJLFmfoDUSreLsYemgYp'
 		},
@@ -55,5 +64,4 @@ module.exports = function(){
 	};
 
 	return config = (process.env.NODE_ENV === undefined) ? devConfig : prodConfig;
-	//return config;
 };
