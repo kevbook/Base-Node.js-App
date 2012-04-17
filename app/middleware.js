@@ -6,19 +6,19 @@ module.exports = function(app, appRoot){
 
 	var express 		 = require('express'),
 			config 			 = require('./config')(),
-			logger 			 = require('../lib/logger'),
-			subdomain 	 = require('subdomain'),
-			errorHandler = require('./errorhandler')(app);
+			logger 			 = require('./logger'),
+			errorHandler = require('./errorhandler')(app),
+			subdomain 	 = require('subdomain');
 
 	/**
 	 * connecting to db. 
 	 */
 
 	var mongoose 		 = require('mongoose'),
-			sessionStore = require('connect-mongoose')(express);
+			sessionStore = require('connect-redis')(express);
 
 	mongoose.connect(config.mongodb.url);
-
+	
 	mongoose.connection.on('open', function(err){
 		logger.log('server_start', 'mongodb is connected :)', true);
 	});
@@ -26,7 +26,6 @@ module.exports = function(app, appRoot){
 	mongoose.connection.on('error', function(error){  
 	  logger.log('db_conn_error', error, true);
 	});
-
 
 	/**
 	 * view templating options 
@@ -48,31 +47,15 @@ module.exports = function(app, appRoot){
 	app.use(subdomain({base:'localhost', removeWWW: true}));
 	app.use(express.methodOverride());
 	app.use(express.bodyParser());
-	app.use(express.cookieParser('y34hBuddyL1ghtW3ightB4by'));
+	app.use(express.cookieParser());
 	app.use(express.session({
 		secret :'y34hBuddyL1ghtW3ightB4by',
-   	store  : new sessionStore()
+		maxAge : new Date(Date.now() + 720000),
+  	store  : new sessionStore({host:config.redis.host, pass:config.redis.pass, port:config.redis.port})
 	}));
 	app.use(express.csrf());
 	app.use(app.router);
 	app.use(errorHandler.notFound); // 404 handler
 	app.use(errorHandler.serverError); // 500 handler
-
-
-	/**
-	 * Helper functions 
-	 */
-
-	app.dynamicHelpers({
-	  csrf: function(req, res){
-	    return req.session ? req.session._csrf : '';
-	  },
-	  session: function (req, res){
-    	return req.session;
-  	},
-	  flash: function(req, res){
-	    return req.flash();// ? req.session._csrf : '';
-	  }
-	});
 
 };

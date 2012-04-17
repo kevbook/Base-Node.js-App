@@ -11,18 +11,16 @@
     "url": "git@github.com:kevbook/Base-Node.js-App.git"
   },
   "dependencies": {
-    "express": "latest",
+    "express": "2.5.8",
     "jade": "latest",
     "loggly": "latest",
-    "mongoose": "latest",
-    "connect-mongoose": "latest",
+    "mongoose": "2.5.14",
+    "connect-redis": "latest",
     "gravatar": "latest",
-    "express-form": "latest",
     "postage": "latest",
     "subdomain":"latest"
   },
   "devDependencies": {
-    "node-inspector": "latest",
     "nodetime": "latest"
   },
   "domains": [

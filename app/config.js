@@ -6,7 +6,13 @@ module.exports = function(){
 
 	devConfig = {
 		mongodb: {
-			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/node_test'
+			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/nodetest'
+			//'mongodb://Kevin-Sakhujas-MacBook-Air.local:27017/data/db/'
+		},
+		redis: {
+			host: 'guppy.redistogo.com',
+			pass: '2b3ea48b8ae24d449f99ffffc4a9892d',
+			port: 9382
 		},
 		loggly: {
 			subdomain:'kevbook'
@@ -29,14 +35,20 @@ module.exports = function(){
 		viewOptions: {
 			pretty: true,
     	assetVersion: '?v1',
-    	assetUrl: ''
+    	assetUrl: '',
+    	//debug: true
 		},
 	};
 
 
 	prodConfig = {
 		mongodb: {
-			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/node_test'
+			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/nodetest'
+		},
+		redis: {
+			host: 'guppy.redistogo.com',
+			pass: '2b3ea48b8ae24d449f99ffffc4a9892d',
+			port: 9382
 		},
 		loggly: {
 			subdomain:'kevbook'

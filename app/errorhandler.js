@@ -4,7 +4,7 @@ module.exports = function(app){
 	 * module dependencies 
 	 */
 
-	logger = require('../lib/logger');
+	logger = require('./logger');
 
 	return {
 
@@ -14,9 +14,7 @@ module.exports = function(app){
 
 			res.render('errors/404', { 
 				status: 404,
-		 		locals:{
-		 			title: 'not Found 404 :('
-		 		}
+		 		locals:{ title: 'not Found 404 :(' }
 		  });
 		},
 		
@@ -36,9 +34,7 @@ module.exports = function(app){
 		  else{
 				res.render('errors/500', { 
 					status: err.status || 500,
-			 		locals: {
-			 			title: '500 internal serverError :('
-			 		}
+			 		locals: { title: '500 internal serverError :(' }
 			  });
 			}
 		}

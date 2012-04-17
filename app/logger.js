@@ -1,6 +1,10 @@
 exports.log = function(input, msg, printAlso){
 
-	var config = require('../config/config')(),
+	/**
+	 * module dependencies 
+	 */
+	 
+	var config = require('./config')(),
 			loggly = require('loggly'),
 			errorCodes = errCodes(),
 			client;
