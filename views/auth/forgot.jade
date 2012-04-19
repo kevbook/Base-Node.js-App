@@ -1,0 +1,7 @@
+h1 forgot password page
+
+form(method='post', action='forgot')
+	!=flash
+	input(type='text', id='email', name='email', placeholder='email')
+	input(type='submit', id='submit', class='button', value='send')
+	input(type='hidden', name='_csrf', value=csrf)

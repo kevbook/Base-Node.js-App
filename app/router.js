@@ -18,10 +18,12 @@ module.exports = function(app) {
   app.get('/login', auth.login);
   app.get('/signup', auth.signup);
   app.get('/logout', auth.logout);
-  
+  app.get('/forgot', auth.forgot);
+
   app.post('/login', auth.doLogin);
   app.post('/signup', auth.doSignup);
-
+  app.post('/forgot', auth.doForgot);
+  app.post('/pass_reset', auth.passReset);
 
 };
 

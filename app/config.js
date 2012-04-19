@@ -5,6 +5,7 @@ module.exports = function(){
 			prodConfig;
 
 	devConfig = {
+		baseUrl: 'localhost:8000/',
 		mongodb: {
 			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/nodetest'
 			//'mongodb://Kevin-Sakhujas-MacBook-Air.local:27017/data/db/'
@@ -30,7 +31,7 @@ module.exports = function(){
       clientSecret: 'b65ad83daed242c0aa059ffae42feddd'
     },
 		postageapp: {
-			apiKey: 'MQNVrlQalbQQHJLFmfoDUSreLsYemgYp'
+			apiKey: 'bGXPh45Q8DtxH8KBuqnEp68fC0zB083i'
 		},
 		viewOptions: {
 			pretty: true,
@@ -42,6 +43,7 @@ module.exports = function(){
 
 
 	prodConfig = {
+		baseUrl: 'localhost:8000/',
 		mongodb: {
 			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/nodetest'
 		},
@@ -66,7 +68,7 @@ module.exports = function(){
       clientSecret: 'b65ad83daed242c0aa059ffae42feddd'
     },
 		postageapp: {
-			apiKey: 'MQNVrlQalbQQHJLFmfoDUSreLsYemgYp'
+			apiKey: 'bGXPh45Q8DtxH8KBuqnEp68fC0zB083i'
 		},
 		viewOptions: {
 			pretty: false,

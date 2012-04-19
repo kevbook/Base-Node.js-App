@@ -3,7 +3,8 @@
  */
 
 var User = require('../models/User'),
-		mailer = require('postage'),
+		config = require('../app/config')(),
+		mailer = require('postage')(config.postageapp.apiKey),
 		helper = require('../app/helper'),
 		logger = require('../app/logger'),
 		mongooseErrors = require('../app/mongooseerrors');
@@ -17,7 +18,13 @@ exports.login = function(req, res) {
 
 exports.signup = function(req, res) {
 	res.render('auth/signup', { 
- 		locals:{ title: 'sign up' }
+ 		locals:{ title: 'sign up', email:'', username:'' }
+  });
+};
+
+exports.forgot = function(req, res) {
+	res.render('auth/forgot', { 
+ 		locals:{ title: 'forgot password'	}
   });
 };
 
@@ -28,7 +35,8 @@ exports.logout = function(req, res) {
 	res.redirect('/', 302);
 };
 
-exports.doSignup = function(req, res) {
+
+exports.doSignup = function(req, res, next) {
 	var viewOn = false,
 			data = {
 	 			email: req.body.email, 
@@ -36,7 +44,7 @@ exports.doSignup = function(req, res) {
 	  		username: req.body.username
 			};
 
-	if (data.email == '' || data.password == '' || data.username == '' || req.body.password2 == '') {
+	if (data.email === '' || data.password === '' || data.username === '') {
 	  req.flash('error', 'All fields are required.');
 	  viewOn = true;
 	} else if (! helper.isPassword(data.password)) {
@@ -56,28 +64,114 @@ exports.doSignup = function(req, res) {
 						next(err);
 					} else {
 						res.render('auth/signup', { 
-				 			locals:{ title: 'sign up'}
+				 			locals:{ title: 'sign up',
+				 				email: data.email,
+	 							username: data.username
+				 			}
 						});	
 					}
 				});
 			} else {
-				delete result.password;
-				req.session.logged = true;
-				//req.session.userid = result;
-				req.session.user = result;
-				/*
-					mailer.send({
-						recipients: data.email, template:'welcome', variables:{username: data.username}
-					});
-				*/
+				setSession(req, result);
+				mailer.send({
+					recipients:data.email, template:'welcome', variables:{username: data.username} }, function(err){
+						if(err) logger.log('email_send_error', err + '- Email: ' + data.email);
+				});
 				res.redirect('/user');
 			}
 		});
 	}
 
-	if (viewOn){
+	if (viewOn) {
 		res.render('auth/signup', { 
-	 		locals:{ title: 'sign up'}
+	 		locals:{ title: 'sign up', 
+	 			email: data.email,
+	 			username: data.username
+	 		}
 		});
 	}
+};
+
+exports.doLogin = function(req, res, next) {
+	var viewOn = false,
+			data = {
+	 			email: req.body.email, 
+	  		password: req.body.password
+			};
+
+	if (data.email === '' || data.password === '') {
+	  req.flash('error', 'Invalid email/password combination.');
+	} else {
+		User.findOne({ email: data.email, password: helper.encryptPass(data.password) }, function(err, foundUser) {
+			if(err) {
+				next(err);
+			} else if (foundUser !== null && foundUser._id) {
+					setSession(req, foundUser);
+					res.redirect('/user');
+			} else { 
+	  		req.flash('error', 'Invalid email/password combination.');
+	  		res.redirect('/login');
+			}
+		});
+	}
+};
+
+exports.doForgot = function(req, res, next) {
+	var viewOn = false,
+			email = req.body.email;
+
+	if (email === '') {
+	  viewOn = true;
+	} else if (! helper.isEmail(email)) {
+		viewOn = true;
+	} else {
+    User.findOne({ email: email }, ['_id'], function(err, foundUser) {
+    	if(err) {
+				next(err);
+			} else if (foundUser !== null && foundUser._id) {
+      		var randomHash = helper.randomHash();      		
+      		var resetURL = config.baseUrl  + 'pass_reset/' + email + '/' + randomHash;
+      		console.log(resetURL);
+
+      		// update DB
+					User.update({ _id: foundUser._id }, {pass_reset_date: new Date().addHours(2), pass_reset_hash: randomHash}, function(err) {
+      			if(err) {
+      				next(err);
+      			} else {
+							mailer.send({
+								recipients:email, template:'pass_reset', variables:{resetURL: resetURL} }, function(err){
+									if(err) {
+										logger.log('email_send_error', err + '- Email: ' + email);
+									} 
+									else{
+										req.flash('info', 'Password reset email sent.');
+		  							res.redirect('/forgot')
+									}
+							});
+      			}
+      		});
+			} else { 
+				req.flash('error', 'Email not found, try signing up.');
+  			res.redirect('/forgot')
+			}
+		});
+	}
+
+	if (viewOn) {
+		req.flash('error', 'Please provide an email addresss!');
+  	res.redirect('/forgot')
+	}
+};
+
+function setSession(req, user) {
+	delete(user.password);
+	delete user.email_verifed;
+	delete user.pass_reset_date;
+	delete user.pass_reset_hash;
+	delete user.accessToken;
+	delete user.accessTokenSecret;
+
+	req.session.logged = true;
+	req.session.user = user;
+	console.log(user);
 };

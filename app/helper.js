@@ -1,3 +1,8 @@
+Date.prototype.addHours= function(h) {
+    this.setHours(this.getHours() + h);
+    return this;
+};
+
 exports.isMobile = function(request){
   var ua = request.header('user-agent');
   return (/mobile/i.test(ua)) ? true : false;	
@@ -40,4 +45,16 @@ exports.toLower = function(val){
 
 exports.ccHide = function(creditCard) {
   return '****-****-****-' + creditCard.slice(creditCard.length-4, creditCard.length);
+};
+
+exports.randomHash = function() {
+  var strLength = 32, 
+  chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_@',
+  randomString = '';
+
+  for (var i = 0; i < strLength; i++) {
+      var randomPoz = Math.floor(Math.random() * chars.length);
+      randomString += chars.substring(randomPoz,randomPoz+1);
+  }
+  return randomString;
 };
