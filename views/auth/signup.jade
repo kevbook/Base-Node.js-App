@@ -1,0 +1,8 @@
+h1 sign up page
+
+form(method='post', action='signup')
+	input(type='text', id='email', name='email', placeholder='email', value=email)
+	input(type='password', id='password', name='password', placeholder='password')
+	input(type='text', id='username', name='username', placeholder='username', value=username)
+	input(type='submit', id='submit', class='button', value='sign up')
+	input(type='hidden', name='_csrf', value=csrf)

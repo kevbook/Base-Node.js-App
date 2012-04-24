@@ -1,0 +1,82 @@
+/* form elelments */
+@textWidth: 200px;
+
+input, textarea {
+  display: inline-block;
+  margin: 0;
+  padding:0 10px;
+  font-size:15px;
+  border:1px solid #ddd;
+  background:#fff;
+  color: #777;
+  width: @textWidth;
+  .border-radius(0.2em);
+}
+
+input {
+  height: 32px;
+}
+
+input:focus, textarea:focus {
+  outline: 0;
+  outline: thin dotted \9; /* IE6-9 */
+  border:2px solid #ddd;
+}
+
+.button{
+  width: @textWidth;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  -o-background-clip: padding-box;
+  /*background-clip: padding-box;*/ /* commented out due to Opera 11.10 bug */
+  .border-radius(0.2em);
+  text-align: center;
+  text-shadow: 0 -1px 0 #fff;
+  text-transform: uppercase;
+  background-color: #fff;
+  background-image: -webkit-gradient(linear,0% 40%,0% 70%,from(#fff),to(#eaeaea));
+  background-image: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#fff),to(#eaeaea));
+  border: solid 1px #ccc;
+  .border-radius(0.2em);
+  height: 32px;
+  text-decoration:none;
+  color:@red;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+    color: #999;
+    text-decoration: none;
+    background-color: #F8F8F8;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#F8F8F8),to(#F1F1F1));
+    background-image: -webkit-linear-gradient(top,#F8F8F8,#F1F1F1);
+    background-image: -moz-linear-gradient(top,#F8F8F8,#F1F1F1);
+    background-image: -ms-linear-gradient(top,#F8F8F8,#F1F1F1);
+    background-image: -o-linear-gradient(top,#F8F8F8,#F1F1F1);
+    background-image: linear-gradient(top,#F8F8F8,#F1F1F1);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f8f8f8',EndColorStr='#F1F1F1');
+    outline: none;
+}
+
+.button:active,.select:active{
+    background: #f8f8f8;
+    background: -webkit-gradient(linear,left top,left bottom,from(#f8f8f8),to(#F1F1F1));
+    background: -webkit-linear-gradient(top,#f8f8f8,#F1F1F1);
+    background: -moz-linear-gradient(top,#f8f8f8,#F1F1F1);
+    background: -ms-linear-gradient(top,#f8f8f8,#F1F1F1);
+    background: -o-linear-gradient(top,#f8f8f8,#F1F1F1);
+    background: linear-gradient(top,#f8f8f8,#F1F1F1);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f8f8f8',EndColorStr='#F1F1F1');
+    .box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}

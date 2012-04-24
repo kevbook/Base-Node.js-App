@@ -1,0 +1,31 @@
+h1 forgot password page
+
+form(method='post', action='forgot')
+	input(type='text', id='email', name='email', placeholder='email')
+	input(type='submit', id='submit', class='button', value='send')
+	input(type='hidden', name='_csrf', value=csrf)
+
+script
+	head.ready(function() {
+		$("#submit").live("click",function(){
+			var email = $('#email').val();
+			$.ajax({
+				type: "POST",
+				url: "/forgot",
+				data: { email: email, _csrf: '#{csrf}' },
+				dataType: "json",
+				cache:false,
+				success: function(data) {
+					if(data.status){
+						console.log(data.msg);
+					} else {
+						console.log(data.msg);
+					}
+				},
+				error: function(xhr, textStatus, err){
+					console.log(xhr.responseText);
+				}
+			});
+			return false;
+		});
+	});

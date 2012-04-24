@@ -1,0 +1,10 @@
+/*
+  // Catch All exception handler, log error and exit
+process.on('uncaughtException', function (err) {
+  console.log('Uncaught exception: ' + err + err.stack);
+   app.close();
+
+   // ToDo: add time gap
+  process.exit()
+});
+*/

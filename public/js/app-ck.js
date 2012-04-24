@@ -1,0 +1,1 @@
+head.ready(function(){function a(a,b){$("#msg").show().html(b);setTimeout(function(){$("#msg").hide()},3e3)}});
