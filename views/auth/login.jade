@@ -1,8 +1,0 @@
-h1 login page
-
-form(method='post', action='login')
-	!=flash
-	input(type='text', id='email', name='email', placeholder='email')
-	input(type='password', id='password', name='password', placeholder='password')
-	input(type='submit', id='submit', class='button', value='login')
-	input(type='hidden', name='_csrf', value=csrf)
