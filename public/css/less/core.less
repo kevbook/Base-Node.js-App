@@ -1,6 +1,7 @@
 @import "reset.less";
 @import "variables.less"; 
 @import "form.less"; 
+@import "header.less";
 
 body {
   font-family: @baseFontFamily;
@@ -26,109 +27,9 @@ a:hover {
 	width: @siteWidth;
 }
 
-#header {
-	height:@navbarHeight;
-	background-color: @navbarBackground;
-  .box-shadow(0 1px 3px rgba(34, 25, 25, 0.4));
-  width:100%;
-}
-
-#logo {
-  margin-top:7px;
-  line-height:@navbarHeight;
-}
-
-#header-nav ul {
-  list-style:none;
-}
-
-#header-nav li {
-  display: inline-block;  
-  color:@navbarLinkColor;
-  text-transform: uppercase;
-  font-size:12px;
-  font-weight:bold;
-  text-align: center;
-  margin-right:10px;
-  line-height:@navbarHeight;
-}
-
-#header-nav li a {
-  display: block; 
-  width:75px;
-}
-
-#header-nav li a:hover {
-  background-color:@bodyBackground;
-  color:@navbarLinkColor;
-  text-decoration: none;
-}
-
-#header-nav li a:active {
-  background-color: red;
-}
 
 
-.HeaderContainer li ul a:active {color: #fff; background-color: #cb2027;}
-
-/*
-#header-nav #user li {
-  display: block;  
-  width:75px;
-}
-*/
-
-
-
-
-
-
-#header-nav img {
-  width: 22px; 
-  height: 22px;
-}
-#Navigation #UserNav img {position: absolute; top: 12px; left: 10px;  
-  box-shadow: 0 1px 2px rgba(34,25,25,0.3); -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.3); -webkit-box-shadow: 0 1px 2px rgba(34,25,25,0.3);}
-
-
-
-/* Navigation Bar */
-#Navigation ul {z-index: 105; top: 28px; left: 0;}
-#Navigation .nav {height: 29px; padding: 15px 27px 0 14px;}
-#Navigation .nav span {top: 20px; right: 14px; width: 7px; height: 6px; background-image: url(../images/DownArrowGray7.png);}
-#Navigation .nav .PlusIcon {top: 19px; right: 13px; width: 6px; height: 8px; background-image: url(../images/PlusIconSimple.png);}
-#Navigation .LoginNav {padding-right: 14px;}
-#Navigation li:hover .nav {text-decoration: none; text-shadow: 0 1px rgba(255,255,255,0.3); background-color: #e1dfdf;}
-#Navigation li:active .nav {color: #fff; text-shadow: 0 -1px rgba(34,25,25,0.3); background-color: #cb2027;}
-#Navigation #UserNav .nav {padding-left: 38px;}
-#Navigation #UserNav ul {left: auto; right: 0;}
-
-
-
-.header-nav li {
-}
-
-
-
-
-.header-nav .social a {
-  vertical-align: -6px;
-  width:31px;
-  margin-right:1px;
-}
-
-.header-nav .social a:hover {
-  background:none;
-  .opacity(70);
-}
-
-.footer-nav li {
-  text-align: center;
-  display: inline-block;
-  padding: 0 5px;
-  font-size: 13px;
-}
-
+/* Flash Notifications */
 .flash {
   background-color: #149bdf;
   background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));

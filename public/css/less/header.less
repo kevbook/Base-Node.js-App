@@ -1,0 +1,110 @@
+#header {
+	height:@navbarHeight;
+	background-color: @navbarBackground;
+  .box-shadow(0 1px 3px rgba(34, 25, 25, 0.4));
+  width:100%;
+}
+
+#logo {
+  margin-top:7px;
+}
+
+/* Navigation */
+
+#header-nav ul , #footer-nav ul {
+  list-style:none;
+  padding: 0;
+}
+
+#header-nav li, #footer-nav li {
+  float:left;
+  position:relative;
+  margin-left:12px;
+}
+
+
+#header-nav li a {
+  display: block; 
+  line-height:@navbarHeight;
+  padding:0 10px;  
+  text-transform: uppercase;
+  font-weight:bold;
+  text-align: center;
+  color:@navbarLinkColor;
+  font-size:12px;
+}
+
+#header-nav li a:hover {
+  background-color:@navbarLinkColor;
+  color:@navbarBackground;
+  text-decoration: none;
+}
+
+#header-nav li a:active {
+  background-color: lighten(@red, 10%);
+}
+
+#header-nav .social, #header-nav .social a {
+  margin:0;
+  padding:0;
+}
+
+#header-nav .social a img {
+  vertical-align: -7px;
+  margin-left: 1px;
+}
+
+#header-nav .social a:hover {
+  background:none;
+  .opacity(70);
+}
+
+/* Dropdown */
+
+#nav-profile .menu {
+  position:absolute;
+  right:0;
+  background-color: #fff;
+  .box-shadow(0 1px 3px rgba(34, 25, 25, 0.4));
+  display: none;
+}
+
+#nav-profile .menu li {
+  margin:0;
+}
+
+#nav-profile a img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right:7px;
+}
+
+#nav-profile .menu .divider {
+  border-top: 1px solid @bodyBackground;
+}
+
+#nav-profile .menu li a {
+  width:120px;
+  text-transform:none;
+  text-align: left;
+  font-size:13px;
+  padding:0 14px;
+  line-height:@navbarMenuHeight;
+}
+
+#nav-profile:hover > ul {
+  display: block;
+}
+
+#nav-profile:hover > a {
+  background-color:@navbarLinkColor;
+  color:@navbarBackground;
+}
+
+/* Footer */
+
+#footer-nav li a {
+  font-size: 13px;
+  margin-right:10px;
+}

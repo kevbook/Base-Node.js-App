@@ -33,7 +33,7 @@ module.exports = function(){
 		},
 		viewOptions: {
 			pretty: true,
-    	assetVersion: '?v1',
+    	assetVersion: '?v2',
     	assetUrl: 'http://127.0.0.1:8000/',
     	baseUrl: 'localhost:8000/'
     	//debug: true

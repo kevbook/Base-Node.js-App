@@ -44,26 +44,28 @@ html(lang='en')
 				nav#header-nav.right
 					ul
 						- if(session.auth.logged === true)
-							li
-								a(href='#') 
+							li: a(href='/messages') messages
+							li#nav-profile
+								a(href='/user')
 									img(src=assetUrl + 'img/' + session.auth.user.pic + assetVersion)
 									=session.auth.user.username
-								ul#user
-									li: a(href='/invite') Invite
-									li: a(href='/settings') Settings
+								ul.menu
+									li: a(href='/invite') Invite Others
+									li.divider: a(href='/settings') Settings
 									li: a(href='/settings/prefs') Preferences
 									li: a(href='/settings/password') Change Password
-									li: a(href="/logout") Logout
+									li.divider: a(href="/logout") Logout
+
 						- else
 							li: a(href="/signup") Sign up
 							li: a(href="/login") Login
-							li.social: a(href="/login/twitter"): img(src=assetUrl + 'img/twitter.png' + assetVersion)
+							li.social: a(href="/login/twitter", style='margin-left:10px'): img(src=assetUrl + 'img/twitter.png' + assetVersion)
 							li.social: a(href="/login/fb"): img(src=assetUrl + 'img/fb.png' + assetVersion)
 
 		section.wrapper!= body
 
-		footer
-			nav.wrapper.footer-nav
+		footer#footer
+			nav#footer-nav.wrapper.clearfix
 				ul
 					li: a(href='/about') About
 					li: a(href='/press') Press
