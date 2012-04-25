@@ -561,7 +561,10 @@ textarea:focus {
   width: 24px;
   height: 24px;
   vertical-align: middle;
-  margin-right: 7px;
+  margin-right: 5px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
 #nav-profile .menu .divider {
   border-top: 1px solid #efefef;
@@ -572,6 +575,7 @@ textarea:focus {
   text-align: left;
   font-size: 13px;
   padding: 0 14px;
+  font-weight: normal;
   line-height: 32px;
 }
 #nav-profile:hover > ul {
