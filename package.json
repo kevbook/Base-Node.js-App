@@ -12,14 +12,15 @@
   },
   "dependencies": {
     "express": "2.5.8",
+    "mongoose": "2.6.0",
+    "connect-auth": "0.5.1",
     "jade": "latest",
     "loggly": "latest",
-    "mongoose": "2.6.0",
     "connect-redis": "latest",
     "gravatar": "latest",
     "postage": "latest",
     "subdomain":"latest",
-    "connect-auth": "0.5.1"
+    "geocoder": "latest"
   },
   "devDependencies": {
     "nodetime": "latest"

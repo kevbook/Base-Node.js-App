@@ -1,0 +1,9 @@
+h1 reset your password
+
+form(method='post', action='/pass_reset')
+	input(type='password', id='password', name='password', placeholder='password')
+	input(type='password', id='password2', name='password2', placeholder='password confirm')
+	input(type='submit', id='submit', class='button', value='reset')
+	input(type='hidden', name='_csrf', value=csrf)
+	input(type='hidden', name='email', value=email)
+	input(type='hidden', name='hash', value=hash)

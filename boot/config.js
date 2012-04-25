@@ -5,7 +5,7 @@ module.exports = function(){
 			prodConfig;
 
 	devConfig = {
-		baseUrl: 'localhost:8000/',
+		baseUrl: 'http://localhost:8000/',
 		mongodb: {
 			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/test-node'
 			//'mongodb://Kevin-Sakhujas-MacBook-Air.local:27017/data/db/'
@@ -42,7 +42,7 @@ module.exports = function(){
 
 
 	prodConfig = {
-		baseUrl: 'localhost:8000/',
+		baseUrl: 'http://localhost:8000/',
 		mongodb: {
 			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/test-node'
 		},

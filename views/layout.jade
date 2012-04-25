@@ -37,20 +37,28 @@ html(lang='en')
 
 		!=flash
 
-		header.header
-			nav.wrapper.header-nav.clearfix
-				a(href='/')#logo
+		header#header
+			div.wrapper.clearfix
+				a(href='/')#logo.left
 					img(src=assetUrl + 'img/logo.png' + assetVersion)
-
-				ul.right
-					- if(session.auth.logged === true)
-						li: a(href='#')=session.auth.user.username
-						li: a(href="/logout") Logout
-					- else
-						li: a(href="/signup") Sign up
-						li: a(href="/login") Login
-						li.social: a(href="/login/twitter"): img(src=assetUrl + 'img/twitter.png' + assetVersion)
-						li.social: a(href="/login/fb"): img(src=assetUrl + 'img/fb.png' + assetVersion)
+				nav#header-nav.right
+					ul
+						- if(session.auth.logged === true)
+							li
+								a(href='#') 
+									img(src=assetUrl + 'img/' + session.auth.user.pic + assetVersion)
+									=session.auth.user.username
+								ul#user
+									li: a(href='/invite') Invite
+									li: a(href='/settings') Settings
+									li: a(href='/settings/prefs') Preferences
+									li: a(href='/settings/password') Change Password
+									li: a(href="/logout") Logout
+						- else
+							li: a(href="/signup") Sign up
+							li: a(href="/login") Login
+							li.social: a(href="/login/twitter"): img(src=assetUrl + 'img/twitter.png' + assetVersion)
+							li.social: a(href="/login/fb"): img(src=assetUrl + 'img/fb.png' + assetVersion)
 
 		section.wrapper!= body
 

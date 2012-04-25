@@ -1,5 +1,4 @@
 exports.index = function(req, res) {
-	console.log(req.session);
 	res.render('home', { 
  		locals:{ title: 'home' }
   });

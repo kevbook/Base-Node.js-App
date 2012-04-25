@@ -26,6 +26,7 @@ exports.checkAdmin = function(req, res, next) {
 
 
 
+
 exports.updateSession = function(req, res, next) {
   if (req.session && req.session.auth === true) {
     User.findById(req.session.user_id, function(user) {

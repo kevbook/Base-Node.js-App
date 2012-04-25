@@ -26,7 +26,7 @@ a:hover {
 	width: @siteWidth;
 }
 
-.header {
+#header {
 	height:@navbarHeight;
 	background-color: @navbarBackground;
   .box-shadow(0 1px 3px rgba(34, 25, 25, 0.4));
@@ -34,32 +34,82 @@ a:hover {
 }
 
 #logo {
-  .left;
   margin-top:7px;
   line-height:@navbarHeight;
 }
 
-.header-nav li {
-  display: inline-block;
+#header-nav ul {
+  list-style:none;
 }
 
-.header-nav li a {
-  display: inline-block;
-  font-size:12px;
+#header-nav li {
+  display: inline-block;  
   color:@navbarLinkColor;
   text-transform: uppercase;
+  font-size:12px;
   font-weight:bold;
-  width:75px;
   text-align: center;
-  line-height:@navbarHeight;
   margin-right:10px;
+  line-height:@navbarHeight;
 }
 
-.header-nav li a:hover {
-  background-color:@navbarLinkColor;
-  color:@navbarBackground;
+#header-nav li a {
+  display: block; 
+  width:75px;
+}
+
+#header-nav li a:hover {
+  background-color:@bodyBackground;
+  color:@navbarLinkColor;
   text-decoration: none;
 }
+
+#header-nav li a:active {
+  background-color: red;
+}
+
+
+.HeaderContainer li ul a:active {color: #fff; background-color: #cb2027;}
+
+/*
+#header-nav #user li {
+  display: block;  
+  width:75px;
+}
+*/
+
+
+
+
+
+
+#header-nav img {
+  width: 22px; 
+  height: 22px;
+}
+#Navigation #UserNav img {position: absolute; top: 12px; left: 10px;  
+  box-shadow: 0 1px 2px rgba(34,25,25,0.3); -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.3); -webkit-box-shadow: 0 1px 2px rgba(34,25,25,0.3);}
+
+
+
+/* Navigation Bar */
+#Navigation ul {z-index: 105; top: 28px; left: 0;}
+#Navigation .nav {height: 29px; padding: 15px 27px 0 14px;}
+#Navigation .nav span {top: 20px; right: 14px; width: 7px; height: 6px; background-image: url(../images/DownArrowGray7.png);}
+#Navigation .nav .PlusIcon {top: 19px; right: 13px; width: 6px; height: 8px; background-image: url(../images/PlusIconSimple.png);}
+#Navigation .LoginNav {padding-right: 14px;}
+#Navigation li:hover .nav {text-decoration: none; text-shadow: 0 1px rgba(255,255,255,0.3); background-color: #e1dfdf;}
+#Navigation li:active .nav {color: #fff; text-shadow: 0 -1px rgba(34,25,25,0.3); background-color: #cb2027;}
+#Navigation #UserNav .nav {padding-left: 38px;}
+#Navigation #UserNav ul {left: auto; right: 0;}
+
+
+
+.header-nav li {
+}
+
+
+
 
 .header-nav .social a {
   vertical-align: -6px;
@@ -98,6 +148,14 @@ a:hover {
   font-size:15px;
 }
 
-.error{
+.error {
   background-color: @red;
+}
+
+.success {
+  background-color: @green;
+}
+
+.info {
+  background-color: @orange;
 }
