@@ -7,33 +7,35 @@ var User = require('../models/User'),
 		mongooseErrors = require('../boot/mongooseerrors');
 
 
-exports.index = function(req, res, next) {
-	res.render('search/index', { 
- 		locals:{ title: 'search page' }
-  });
+/**
+ * user messages view
+ */
+
+exports.index = function(req, res) {
+  res.render('user/search', { 
+    locals:{ title: 'search users' }
+  }); 
 };
 
-exports.zip = function(req, res, next) {
-	var zip = req.body.zip,
-	lat, 
-	lng;
+
+
+
+
+function getGeo(req, res, next) {
+  var zip = req.body.zip,
+  lat, 
+  lng;
 
   if(/^[0-9]{3,5}$/.test(zip)) {
     geocoder.geocode(zip, function (err, data) {
       if(err) {
-      	next(err);
+        next(err);
       } else {
-      	lat = data.results[0].geometry.location.lat;
-      	lng = data.results[0].geometry.location.lng;
-
-				res.render('search/index', { 
-			 		locals:{ title: 'search page' }
-			  });
-
+        lat = data.results[0].geometry.location.lat;
+        lng = data.results[0].geometry.location.lng;
       }
     });
   } else {
-  	req.flash('error', 'Invalid zipcode.');
-  	res.redirect('/search');
+    req.flash('error', 'Invalid zipcode.');
   }
 };

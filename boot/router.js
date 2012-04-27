@@ -75,16 +75,6 @@ module.exports = function(app) {
 
 
   /**
-   * user messages
-   * @ middleware - checks if logged, if not redirects to landing page
-   **/
-
-  app.get('/messages', messages.index);
-  app.get('/messages/:username', messages.readMessage);
-  app.post('/messages', messages.sendMessage);
-
-
-  /**
    * user settings
    * @ middleware - checks if logged, if not redirects to landing page
    **/
@@ -93,6 +83,16 @@ module.exports = function(app) {
   app.get('/settings/prefs', user.prefs);
   app.get('/settings/password', user.password);
   app.post('/settings', user.doSettings);
+
+
+  /**
+   * user messages
+   * @ middleware - checks if logged, if not redirects to landing page
+   **/
+
+  app.get('/messages', messages.index);
+  app.get('/messages/:username', messages.readMessage);
+  app.post('/messages', messages.sendMessage);
 
 
   /**

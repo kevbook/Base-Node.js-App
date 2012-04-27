@@ -44,6 +44,7 @@ html(lang='en')
 				nav#header-nav.right
 					ul
 						- if(session.auth.logged === true)
+							li: a(href='/search') search
 							li: a(href='/messages') messages
 							li#nav-profile
 								a(href='/user')
