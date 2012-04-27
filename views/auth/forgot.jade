@@ -6,15 +6,3 @@ form(method='post', action='/forgot')
 	input(type='hidden', name='_csrf', value=csrf)
 	a(href='login') back to login?
 	a(href='signup') sign up?
-
-script
-	head.ready(function() {
-		$("#submit").live("click",function(){
-			var data = {
-				email: $('#email').val(), 
-				_csrf: '#{csrf}'
-			};
-			jaxify(data, '/forgot');
-			return false;
-		});
-	});

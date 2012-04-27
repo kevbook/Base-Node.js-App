@@ -58,3 +58,7 @@ exports.randomHash = function() {
   }
   return randomString;
 };
+
+exports.toAge = function(dob) {
+  return Math.floor(( (new Date() - new Date(dob)) / 1000 / (60 * 60 * 24) ) / 365.25 );
+};

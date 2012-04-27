@@ -50,19 +50,12 @@ app.use(express.session({
 	//})
 }));
 
-
-app.use(express.session({ secret: 'xxxxx' , 
-	cookie: { expires : null } }))
-
-
-
-
 app.use(auth({
 	strategies : [
 		auth.Facebook({
  			appId : config.fb.appId, 
  			appSecret: config.fb.appSecret, 
- 			scope: "email", 
+ 			scope: "email, user_birthday",
  			callback: config.fb.callback
 	}),
 		auth.Twitter({

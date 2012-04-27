@@ -96,10 +96,11 @@ exports.doLogin = function(req, res, next) {
 
 	if (data.email === '' || data.password === '') {
 	  req.flash('error', 'Invalid email/password combination.');
-	  res.redirect('/login');
+		res.render('auth/login', { 
+	 		locals:{ title: 'login' }
+	  });
 	} else {
 		User.findOne({ email: data.email, password: helper.encryptPass(data.password) }, 
-			['email', 'username', 'role', 'pics'],
 			function(err, foundUser) {
 				if(err) {
 					next(err);
@@ -107,14 +108,17 @@ exports.doLogin = function(req, res, next) {
 						setSession(req, foundUser);
 
 						// update last login
-						User.update({ _id: foundUser._id }, {last_login: new Date()}, function(error) {
-      				if(error) logger.log('server_error', error + '- Email: ' + email);
+						User.update({ _id: foundUser._id }, { last_login: new Date(), pass_reset_date: null, pass_reset_hash: null }, 
+							function(error) {
+      					if(error) logger.log('server_error', error + '- Email: ' + email);
       			});
 						res.redirect('/user');
 				} else { 
 					logger.log('auth_fail', data.email); // log all errors anyways.
 		  		req.flash('error', 'Invalid email/password combination.');
-		  		res.redirect('/login');
+					res.render('auth/login', { 
+				 		locals:{ title: 'login' }
+				  });
 				}
 		});
 	}
@@ -130,46 +134,39 @@ exports.loginTwitter = function(req, res, next) {
         //next (throw new Error('twitter auth failed.'));
       } else {
       	var authDetails = req.getAuthDetails();
-				User.findOne({ twitter_id: authDetails.user.user_id }, 
-					['email', 'username', 'role', 'pics'],
+				User.findOne({ 'twitter.id': authDetails.user.user_id }, 
 					function(err, foundUser) {
 						if(err) {
 							next(err);
 						} else if (foundUser !== null && foundUser._id) {
-							// user is found - load existing stuff
-							setSession(req, foundUser);
 							// update last login, and oAuth tokens
 							User.update({ _id: foundUser._id }, {
 									last_login: new Date(), 
-									twitter_accessToken: authDetails.twitter_oauth_token, 
-									twitter_accessSecret: authDetails.twitter_oauth_token_secret }, 
+									'twitter.accessToken': authDetails.twitter_oauth_token, 
+									'twitter.accessSecret': authDetails.twitter_oauth_token_secret 
+								}, 
 								function(error) {
 	      					if(error) logger.log('server_error', error + '- TwitterID: ' + authDetails.user.user_id);
 	      			});
+							setSession(req, foundUser);
 							res.redirect('/user');
 						} else {
 							// user is not found
 							var data = {
 					  		username: authDetails.user.username,
-					  		twitter_id: authDetails.user.user_id,
-					  		twitter_accessToken: authDetails.twitter_oauth_token, 
-					  		twitter_accessSecret: authDetails.twitter_oauth_token_secret,
+					  		'twitter.id': authDetails.user.user_id,
+					  		'twitter.accessToken': authDetails.twitter_oauth_token, 
+					  		'twitter.accessSecret': authDetails.twitter_oauth_token_secret,
 					  		last_login: new Date()
 							};
 							var user = new User(data);
 							user.pics.push({ pic_url: 'default.png', main_pic: true });
-							user.save(function(err, result) {
-								if(err) {
-									if(err.code === 11000 || err.code === 11001){
-										// ToDo: Assign a new username and move on.
-										logger.log('server_error', err);
-									} else {
-										logger.log('server_error', err + '- TwitterName: ' + data.username);
-									} 
+							user.save(function(error, result) {
+								if(error) {
+									logger.log('server_error', err + '- TwitterName: ' + data.username);
 								} else {
-									// no erros , setup session:
-									setSession(req, result);
-									res.redirect('/user');
+								setSession(req, result);
+								res.redirect('/user');									
 								}
 							});
 						}
@@ -190,46 +187,37 @@ exports.loginFb = function(req, res, next) {
       } else {
       	var authDetails = req.getAuthDetails();
 				User.findOne({ email: authDetails.user.email }, 
-					['email', 'username', 'role', 'pics'],
 					function(err, foundUser) {
 						if(err) {
 							next(err);
 						} else if (foundUser !== null && foundUser._id) {
-							// user is found - load existing stuff
-							setSession(req, foundUser);
-							// update last login, and oAuth tokens
 							User.update({ _id: foundUser._id }, {
 									last_login: new Date(), 
-									fb_accessToken: req.session.access_token }, 
+									'fb.accessToken': req.session.access_token }, 
 								function(error) {
 	      					if(error) logger.log('server_error', error + '- fbID: ' + authDetails.user.id);
 	      			});
+							setSession(req, foundUser);
 							res.redirect('/user');
 						} else {
 							// user is not found
 							var data = {
 					  		username: authDetails.user.username,
 								email: authDetails.user.email,
-								first_name: authDetails.user.first_name,
-								last_name: authDetails.user.last_name,
-								gender: authDetails.user.gender,
-					  		fb_id: authDetails.user.id,
-					  		fb_accessToken: req.session.access_token,
+								'profile.first_name': authDetails.user.first_name,
+								'profile.last_name': authDetails.user.last_name,
+								'profile.gender': authDetails.user.gender,
+								'profile.birthday': authDetails.user.birthday,
+					  		'fb.id': authDetails.user.id,
+					  		'fb.accessToken': req.session.access_token,
 					  		last_login: new Date()
 							};
-							console.log(data);
 							var user = new User(data);
 							user.pics.push({ pic_url: 'default.png', main_pic: true });
-							user.save(function(err, result) {
-								if(err) {
-									if(err.code === 11000 || err.code === 11001){
-										// ToDo: Assign a new username and move on.
-										logger.log('server_error', err);
-									} else {
-										logger.log('server_error', err + '- Facebook: ' + data.username);
-									} 
+							user.save(function(error, result) {
+								if(error) {
+										logger.log('server_error', err + '- Facebook: ' + data.username); 
 								} else {
-									// no erros , setup session:
 									setSession(req, result);
 									res.redirect('/user');
 								}
@@ -244,21 +232,25 @@ exports.loginFb = function(req, res, next) {
 function setSession(req, result) {
 	var sessData = {
 		id: result._id,
-		email: result.email || '',
+		email: result.email || null,
 		username: result.username,
 		role: result.role,
 		lastLogin: new Date(),
-		pic: result.pics[0].pic_url
+		pic: result.pics[0].pic_url,
+		age: result.profile.age || null
 	};
 	req.session.auth.logged = true;
 	req.session.auth.user = sessData;
 };
 
 exports.doForgot = function(req, res, next) {
-	var email = req.body.email;
+	var	email = req.body.email;
+
 	if ((email === '') || (! helper.isEmail(email))) {
-		payload = {status:0, msg: 'Please enter a valid email.'};
-		res.json(payload);
+		req.flash('error', 'Please enter a valid email.');
+		res.render('auth/forgot', { 
+	 		locals:{ title: 'forgot password'	}
+	  });
 	} else {
     User.findOne({ email: email }, ['_id'], function(err, foundUser) {
     	if(err) {
@@ -276,21 +268,24 @@ exports.doForgot = function(req, res, next) {
 										logger.log('email_send_error', err + '- Email: ' + email);
 									} 
 									else{
-										payload = {status:1, msg: 'Password reset email sent.'};
-										res.json(payload);
+										req.flash('success', 'Password reset email sent.');
+										res.redirect('/')
 									}
 							});
       			}
       		});
 			} else { 
-  			payload = {status:0, msg: 'Email not found, try signing up.'};
-				res.json(payload);
+				req.flash('error', 'Email not found, try signing up.');
+				res.render('auth/forgot', { 
+			 		locals:{ title: 'forgot password'	}
+			  });
 			}
 		});
 	}
 };
 
 exports.passReset = function(req, res, next) {
+	var viewOn = false;
 	User.findOne({ email: req.params.email, pass_reset_hash: req.params.hash }, 
 		['_id', 'pass_reset_date'], function(err, result) {
     	if(err) {
@@ -305,13 +300,19 @@ exports.passReset = function(req, res, next) {
 	 					}
 					});
 				} else {
-					req.flash('error', 'There was a problem. Try to do another forgot password.');
-					res.redirect('/forgot');
+					req.flash('error', 'Password reset link expired. Try to do another forgot password.');
+					viewOn = true;
 				}
 			} else {
 				// invalid hash: 
 				req.flash('error', 'There was a problem. Try to do another forgot password.');
-				res.redirect('/forgot');
+				viewOn = true;
+			}
+
+			if(viewOn) {
+				res.render('auth/forgot', { 
+			 		locals:{ title: 'forgot password'	}
+			  });
 			}
 	});
 };
@@ -321,6 +322,8 @@ exports.doPassReset = function(req, res, next) {
 			data = {
 	  		password: req.body.password,
 	  		password2: req.body.password2,
+	  		email: req.body.email,
+	  		hash: req.body.hash
 			};
 
 	if (! helper.isMatch(data.password, data.password2)) {
@@ -330,18 +333,21 @@ exports.doPassReset = function(req, res, next) {
 		req.flash('error', 'Password must be at least 5 characters.');
 	  viewOn = true;
 	} else {
-			User.findOne({ email: req.params.email, pass_reset_hash: req.params.hash }, 
+			User.findOne({ email: data.email, pass_reset_hash: data.hash }, 
 				['_id', 'pass_reset_date'], function(err, result) {
 		    	if(err) {
 						next(err);
 					} else if (result !== null && result._id) {
 						// email is found, not check the timestamp for expiration:
 						if (result.pass_reset_date > new Date()){
-							console.log('---- pass reset stuff ----');
-							req.flash('info', 'Passwrod is changed, now you can login.');
-							res.redirect('login');
+							User.update({ _id: result._id }, { password: helper.encryptPass(data.password) }, 
+								function(error) {
+	      					if(error) logger.log('server_error', error + '- Update Password UserId: ' + result._id);
+									req.flash('success', 'Passwrod is changed, you can login now.');
+									res.redirect('/login');
+	      			});
 						} else {
-							req.flash('error', 'There was a problem. Try to do another forgot password.');
+							req.flash('error', 'Password reset link expired. Try to do another forgot password.');
 							res.redirect('/forgot');
 						}
 					} else {
@@ -361,56 +367,3 @@ exports.doPassReset = function(req, res, next) {
 		});
 	}
 };
-
-
-
-
-
-/*
-exports.doForgot = function(req, res, next) {
-	var viewOn = false,
-			email = req.body.email;
-
-	if (email === '') {
-	  viewOn = true;
-	} else if (! helper.isEmail(email)) {
-		viewOn = true;
-	} else {
-    User.findOne({ email: email }, ['_id'], function(err, foundUser) {
-    	if(err) {
-				next(err);
-			} else if (foundUser !== null && foundUser._id) {
-      		var randomHash = helper.randomHash();      		
-      		var resetURL = config.baseUrl  + 'pass_reset/' + email + '/' + randomHash;
-      		console.log(resetURL);
-
-      		// update DB
-					User.update({ _id: foundUser._id }, {pass_reset_date: new Date().addHours(2), pass_reset_hash: randomHash}, function(err) {
-      			if(err) {
-      				next(err);
-      			} else {
-							mailer.send({
-								recipients:email, template:'pass_reset', variables:{resetURL: resetURL} }, function(err){
-									if(err) {
-										logger.log('email_send_error', err + '- Email: ' + email);
-									} 
-									else{
-										req.flash('info', 'Password reset email sent.');
-		  							res.redirect('/forgot')
-									}
-							});
-      			}
-      		});
-			} else { 
-				req.flash('error', 'Email not found, try signing up.');
-  			res.redirect('/forgot')
-			}
-		});
-	}
-
-	if (viewOn) {
-		req.flash('error', 'Please provide an email addresss!');
-  	res.redirect('/forgot')
-	}
-};
-*/

@@ -5,7 +5,7 @@ module.exports = function(){
 			prodConfig;
 
 	devConfig = {
-		baseUrl: 'http://localhost:8080/',
+		baseUrl: 'http://localhost:8000/',
 		mongodb: {
 			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/test-node'
 			//'mongodb://Kevin-Sakhujas-MacBook-Air.local:27017/data/db/'
@@ -34,7 +34,7 @@ module.exports = function(){
 		viewOptions: {
 			pretty: true,
     	assetVersion: '?v2',
-    	assetUrl: 'http://127.0.0.1:8080/',
+    	assetUrl: 'http://127.0.0.1:8000/',
     	baseUrl: 'localhost:8000/'
     	//debug: true
 		},
@@ -42,7 +42,7 @@ module.exports = function(){
 
 
 	prodConfig = {
-		baseUrl: 'http://localhost:8080/',
+		baseUrl: 'http://localhost:8000/',
 		mongodb: {
 			url: process.env.MONGO_DB || 'mongodb://kevin:kevin@staff.mongohq.com:10004/test-node'
 		},
@@ -71,7 +71,7 @@ module.exports = function(){
 			pretty: false,
     	assetVersion: '?v1',
     	assetUrl: 'https://s3.amazonaws.com/hackd/assets/',
-    	baseUrl: 'localhost:8080/'
+    	baseUrl: 'localhost:8000/'
 		},
 	};
 

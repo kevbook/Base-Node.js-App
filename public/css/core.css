@@ -560,7 +560,7 @@ textarea:focus {
 #nav-profile a img {
   width: 24px;
   height: 24px;
-  vertical-align: middle;
+  vertical-align: -7px;
   margin-right: 5px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;

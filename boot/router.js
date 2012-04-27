@@ -37,8 +37,8 @@ module.exports = function(app) {
   app.get('/logout', auth.logout);
 
   // user
-  //app.get('/user', routeHelper.checkLogged, user.index);
-  app.get('/user', user.index);
+  app.get('/user', routeHelper.checkLogged, user.index);
+  //app.get('/user', user.index);
 
   // search 
   app.get('/search', search.index);
