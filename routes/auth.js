@@ -6,11 +6,20 @@ var User = require('../models/User'),
 		mongooseErrors = require('../boot/mongooseerrors');
 
 
+/**
+ * login view
+ */
+ 
 exports.login = function(req, res) {
 	res.render('auth/login', { 
  		locals:{ title: 'login' }
   });
 };
+
+
+/**
+ * signup view
+ */
 
 exports.signup = function(req, res) {
 	res.render('auth/signup', { 
@@ -18,16 +27,34 @@ exports.signup = function(req, res) {
   });
 };
 
+
+/**
+ * forgot password view
+ */
+
 exports.forgot = function(req, res) {
 	res.render('auth/forgot', { 
  		locals:{ title: 'forgot password'	}
   });
 };
 
+
+
+/**
+ * logout method
+ * @ logs user out 
+ */
+
 exports.logout = function(req, res) {
 	req.session.destroy(function(){});
 	res.redirect('/');
 };
+
+
+/**
+ * signup
+ * @ lets user create a new account with email, password
+ */
 
 exports.doSignup = function(req, res, next) {
 	var viewOn = false,
@@ -88,6 +115,13 @@ exports.doSignup = function(req, res, next) {
 	}
 };
 
+
+
+/**
+ * login
+ * @ lets user login with email, password
+ */
+
 exports.doLogin = function(req, res, next) {
 	var data = {
 	 			email: req.body.email, 
@@ -123,6 +157,10 @@ exports.doLogin = function(req, res, next) {
 		});
 	}
 };
+
+
+
+
 
 exports.loginTwitter = function(req, res, next) {	
   req.authenticate(['twitter'], function(err, authenticated){

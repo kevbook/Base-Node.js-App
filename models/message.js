@@ -16,8 +16,8 @@ var Schema = mongoose.Schema,
 
 MsgSchema = new Schema({
   id            : { type: ObjectId },
-  from_id       : { type: Schema.ObjectId, required: true },
-  to_id         : { type: Schema.ObjectId, required: true },
+  from_id       : { type: ObjectId, required: true },
+  to_id         : { type: ObjectId, required: true },
   from_username : { type: String, required: true, trim: true, lowercase: true },
   to_username   : { type: String, required: true, trim: true, lowercase: true },
   from_pic      : { type: String, required: true },
@@ -28,10 +28,7 @@ MsgSchema = new Schema({
 
 Msg = module.exports = mongoose.model('Msg', MsgSchema);
 
-
-Schemas are pluggable, that is, they allow for applying pre-packaged
-capabilities to extend their functionality.
-
-Suppose that we have several collections in our database and want
-to add last-modified functionality to each one. With plugins this
-is easy. Just create a plugin once and apply it to each Schema:
+// 
+schema.pre('save', function (next) {
+  // send out email after save for message received:
+})

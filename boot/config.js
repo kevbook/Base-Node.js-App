@@ -4,6 +4,11 @@ module.exports = function(){
 			devConfig, 
 			prodConfig;
 
+	/**
+	 * config variables
+	 * @ development environment 
+	 **/
+
 	devConfig = {
 		baseUrl: 'http://localhost:8000/',
 		mongodb: {
@@ -40,6 +45,11 @@ module.exports = function(){
 		},
 	};
 
+
+	/**
+	 * config variables
+	 * @ production environment 
+	 **/
 
 	prodConfig = {
 		baseUrl: 'http://localhost:8000/',

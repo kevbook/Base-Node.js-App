@@ -35,6 +35,7 @@ exports.log = function(input, msg, printAlso){
  * Input tokens are setup on loggly.com 
  * 
  * @return {object} errors and loggly input tokens
+ *
  */
 function errCodes(){
 	return {

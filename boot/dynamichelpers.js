@@ -1,13 +1,29 @@
 module.exports = { 
+  
+  /**
+   * csrf protection
+   * @ checks for csrf on every POST request
+   **/
+
   csrf: function(req, res){
       return req.session ? req.session._csrf : '';
     },
 
-    session: function (req, res){
+
+  /**
+   * session local
+   **/
+
+  session: function (req, res){
       return req.session;
     },
 
-    flash: function(req, res){
+
+  /**
+   * combine flash messages & pretty html output
+   **/
+
+  flash: function(req, res){
       var flash = req.flash(),
           html = '',
           type;
@@ -22,4 +38,5 @@ module.exports = {
       };
       return html;
     }  
+
 };

@@ -597,6 +597,12 @@ body {
   color: #999999;
   background-color: #efefef;
 }
+#ie {
+  background-color: #049cdb;
+  padding: 5px 0;
+  color: #fff;
+  text-align: center;
+}
 a {
   color: #f65134;
   text-decoration: none;

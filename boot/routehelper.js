@@ -1,3 +1,7 @@
+/**
+ * @ middleware - checks if logged, if not redirects to landing page
+ **/
+
 exports.checkLogged = function(req, res, next) {
   if (req.session.auth.logged === true) {
     next();
@@ -6,6 +10,11 @@ exports.checkLogged = function(req, res, next) {
   }
 };
 
+
+/**
+ * @ middleware - checks if logged, redirects to user dashboard
+ **/
+
 exports.ifLogged = function(req, res, next) {
   if (req.session.auth.logged === true) {
     res.redirect('/user');
@@ -13,6 +22,11 @@ exports.ifLogged = function(req, res, next) {
     next();
   }
 };
+
+
+/**
+ * @ middleware - checks if logged and admin, if not redirects to landing page
+ **/
 
 exports.checkAdmin = function(req, res, next) {
   if (req.session.auth.logged === true && req.session.user.role === 99) {
