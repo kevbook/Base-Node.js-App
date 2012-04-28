@@ -16,7 +16,7 @@ html(lang='en')
 		meta(name='og:image', content='path-to-image')
 		meta(name='og:description', content='cool stuff')
 
-		title= title  
+		title=title  
 		
 		// if lt IE 9
 			script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
@@ -48,7 +48,7 @@ html(lang='en')
 							li: a(href='/messages') messages
 							li#nav-profile
 								a(href='/user')
-									img(src=assetUrl + 'img/' + session.auth.user.pic + assetVersion)
+									img(src=assetUrl + 'img/' + session.auth.user.pic[0].pic_url + assetVersion)
 									=session.auth.user.username
 								ul.menu
 									li: a(href='/invite') Invite Others

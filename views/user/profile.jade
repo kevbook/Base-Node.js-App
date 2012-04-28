@@ -1,1 +1,12 @@
 h1 profile page
+h2=username
+h2=email
+img(src=assetUrl + 'img/' + pics[0].pic_url + assetVersion).profile-img
+
+form(method='post', action='/messages')
+	input(type='hidden', name='userid', value=userid)
+	input(type='hidden', name='username', value=username)
+	input(type='hidden', name='pic', value=pics[0].pic_url)
+	input(type='hidden', name='_csrf', value=csrf)
+	textarea(id='msg', name='msg', placeholder='type your message..')
+	input(type='submit', id='submit', class='button', value='send message')

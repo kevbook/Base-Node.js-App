@@ -1,1 +1,10 @@
 h1 user inbox
+div#msg
+	-if(messages.length < 1)
+		h2 no messages, yet.
+
+	-else
+		each msg in messages
+			p
+				img(src=assetUrl + 'img/' + msg.to_pic + assetVersion).profile-img
+				=msg.msg

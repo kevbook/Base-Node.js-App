@@ -16,7 +16,7 @@ module.exports = function(app) {
    * landig page 
    **/
 
-  app.all('/', index.index);
+  app.all('/', routeHelper.ifLogged, index.index);
 
 
   /**
@@ -79,10 +79,10 @@ module.exports = function(app) {
    * @ middleware - checks if logged, if not redirects to landing page
    **/
 
-  app.get('/settings', user.settings);
-  app.get('/settings/prefs', user.prefs);
-  app.get('/settings/password', user.password);
-  app.post('/settings', user.doSettings);
+  app.get('/settings', routeHelper.checkLogged, user.settings);
+  app.get('/settings/prefs', routeHelper.checkLogged, user.prefs);
+  app.get('/settings/password', routeHelper.checkLogged, user.password);
+  app.post('/settings', routeHelper.checkLogged, user.doSettings);
 
 
   /**
@@ -90,9 +90,9 @@ module.exports = function(app) {
    * @ middleware - checks if logged, if not redirects to landing page
    **/
 
-  app.get('/messages', messages.index);
-  app.get('/messages/:username', messages.readMessage);
-  app.post('/messages', messages.sendMessage);
+  app.get('/messages', routeHelper.checkLogged, messages.index);
+  app.get('/messages/:username', routeHelper.checkLogged, messages.readMessage);
+  app.post('/messages', routeHelper.checkLogged, messages.sendMessage);
 
 
   /**
@@ -100,8 +100,8 @@ module.exports = function(app) {
    * @ middleware - checks if logged, if not redirects to landing page
    **/
 
-  app.get('/search', search.index);
-  app.post('/search', search.doSearch);
+  app.get('/search', routeHelper.checkLogged, search.index);
+  app.post('/search', routeHelper.checkLogged, search.doSearch);
 
 };
 

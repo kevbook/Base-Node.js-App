@@ -45,8 +45,7 @@ UserSchema = new Schema({
   }, 
   location  : {
     zipcode     : { type: String }, 
-    lat         : { type: String },
-    lng         : { type: String }
+    geo         : { type: [Number] } // lng,lat
   },
   fb        : {
     id          : { type: Number, unique: true, sparse: true },

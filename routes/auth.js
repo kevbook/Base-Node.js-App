@@ -274,7 +274,7 @@ function setSession(req, result) {
 		username: result.username,
 		role: result.role,
 		lastLogin: new Date(),
-		pic: result.pics[0].pic_url,
+		pic: result.pics,
 		age: result.profile.age || null
 	};
 	req.session.auth.logged = true;

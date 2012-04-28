@@ -24,13 +24,27 @@ exports.index = function(req, res) {
  */
 
 exports.profile = function(req, res) {
-	var username = req.params.username;
+	var user = req.params.username;
 
-	console.log('--- getting username from url ---');
-	console.log(username);
-
-	res.render('user/profile', { 
- 		locals:{ title: 'user profile for: ' + username }
+  User.findOne({ username: user}, 
+  	['username', 'email', 'pics'],
+  	function(err, foundUser) {
+		if(err) {
+			next(err);
+		} else if (foundUser !== null && foundUser._id) {
+				res.render('user/profile', { 
+			 		locals:{ 
+			 			title: 'user dashboad',
+			 			userid: foundUser._id,
+			 			username: foundUser.username,
+			 			email: foundUser.email,
+			 			pics: foundUser.pics
+			 		}
+			  });
+		} else {
+			// user not found
+			res.redirect('/user');
+		}
   });
 };
 

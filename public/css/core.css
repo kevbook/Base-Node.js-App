@@ -434,10 +434,13 @@ textarea {
   -webkit-border-radius: 0.3em;
   -moz-border-radius: 0.3em;
   border-radius: 0.3em;
-  padding: 0 5px;
+  padding: 0 7px;
 }
 input {
   height: 32px;
+}
+textarea {
+  padding: 7px;
 }
 input:focus,
 textarea:focus {
@@ -614,6 +617,13 @@ a:hover {
 .wrapper {
   margin: 0 auto;
   width: 960px;
+}
+.profile-img {
+  width: 24px;
+  height: 24px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
 /* Flash Notifications */
 .flash {

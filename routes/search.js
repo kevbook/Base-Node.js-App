@@ -17,9 +17,11 @@ exports.index = function(req, res) {
   }); 
 };
 
+function findNear() {
+  db.find( { geo : { $near : [50,50] , $maxDistance : 5 } } ).limit(20);
 
 
-
+};
 
 function getGeo(req, res, next) {
   var zip = req.body.zip,
