@@ -11,6 +11,8 @@ var util = require('util'),
     };
 
 module.exports = function(err, req, callback) {
+  var field;
+  
   if (err.name === 'ValidationError') {
     for (field in err.errors){
       var eObj = err.errors[field];

@@ -159,8 +159,9 @@ exports.doLogin = function(req, res, next) {
 };
 
 
-
-
+/**
+ * login/ signup using twitter account
+ */
 
 exports.loginTwitter = function(req, res, next) {	
   req.authenticate(['twitter'], function(err, authenticated){
@@ -213,6 +214,11 @@ exports.loginTwitter = function(req, res, next) {
     }
   });  
 };
+
+
+/**
+ * login/ signup using facebook account
+ */
 
 exports.loginFb = function(req, res, next) {	
   req.authenticate(['facebook'], function(err, authenticated){
