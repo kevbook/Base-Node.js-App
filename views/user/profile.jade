@@ -3,8 +3,8 @@ h2=username
 h2=email
 img(src=assetUrl + 'img/' + pics[0].pic_url + assetVersion).profile-img
 
-form(method='post', action='/messages')
-	input(type='hidden', name='userid', value=userid)
+form(method='post', action='/messages/new')
+	input(type='hidden', name='id', value=id)
 	input(type='hidden', name='username', value=username)
 	input(type='hidden', name='pic', value=pics[0].pic_url)
 	input(type='hidden', name='_csrf', value=csrf)

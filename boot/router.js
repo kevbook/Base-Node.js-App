@@ -90,9 +90,10 @@ module.exports = function(app) {
    * @ middleware - checks if logged, if not redirects to landing page
    **/
 
-  app.get('/messages', routeHelper.checkLogged, messages.index);
-  app.get('/messages/:username', routeHelper.checkLogged, messages.readMessage);
-  app.post('/messages', routeHelper.checkLogged, messages.sendMessage);
+  app.get('/messages', routeHelper.checkLogged, messages.listMessages);
+  app.get('/messages/:id', routeHelper.checkLogged, messages.userMessage);
+  app.post('/messages/new', routeHelper.checkLogged, messages.newMessage);
+  app.post('/messages/delete', routeHelper.checkLogged, messages.deleteMessage);
 
 
   /**
@@ -100,8 +101,8 @@ module.exports = function(app) {
    * @ middleware - checks if logged, if not redirects to landing page
    **/
 
-  app.get('/search', routeHelper.checkLogged, search.index);
-  app.post('/search', routeHelper.checkLogged, search.doSearch);
+  app.get('/search', routeHelper.checkLogged, search.search);
+  app.post('/search/new', routeHelper.checkLogged, search.new);
 
 };
 

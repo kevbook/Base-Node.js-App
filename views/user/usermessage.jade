@@ -1,1 +1,24 @@
-h1 readmessage for a user page
+h1 user inbox
+div#msg
+	-if(messages.length < 1)
+		h2 no messages, yet.
+
+	-else
+		each message in messages
+			p
+				img(src=assetUrl + 'img/' + message.pic + assetVersion).profile-img
+				a(href='/messages/' + message.id)=message.username
+				=message.msg
+
+div
+	form(method='post', action='/messages/delete')
+		input(type='hidden', name='msgId', value=messages.msgId)
+		input(type='hidden', name='_csrf', value=csrf)
+		input(type='submit', id='submit', class='button', value='delete')
+
+div 
+	form(method='post', action='/messages/new')
+		input(type='hidden', name='id', value=id)
+		input(type='hidden', name='_csrf', value=csrf)
+		textarea(id='msg', name='msg', placeholder='type your message..')
+		input(type='submit', id='submit', class='button', value='send message')

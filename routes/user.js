@@ -35,7 +35,7 @@ exports.profile = function(req, res) {
 				res.render('user/profile', { 
 			 		locals:{ 
 			 			title: 'user dashboad',
-			 			userid: foundUser._id,
+			 			id: foundUser._id,
 			 			username: foundUser.username,
 			 			email: foundUser.email,
 			 			pics: foundUser.pics

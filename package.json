@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "express": "2.5.8",
-    "mongoose": "2.6.0",
+    "mongoose": "2.6.3",
     "connect-auth": "0.5.1",
     "jade": "latest",
     "loggly": "latest",

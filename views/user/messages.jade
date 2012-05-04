@@ -4,7 +4,13 @@ div#msg
 		h2 no messages, yet.
 
 	-else
-		each msg in messages
+		each message in messages
 			p
-				img(src=assetUrl + 'img/' + msg.to_pic + assetVersion).profile-img
-				=msg.msg
+				img(src=assetUrl + 'img/' + message.pic + assetVersion).profile-img
+				a(href='/messages/' + message.id)=message.username
+				=message.msg
+
+				form(method='post', action='/messages/delete')
+					input(type='hidden', name='msgId', value=message.msgId)
+					input(type='hidden', name='_csrf', value=csrf)
+					input(type='submit', id='submit', class='button', value='delete')

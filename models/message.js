@@ -8,8 +8,7 @@ var mongoose = require('mongoose'),
 var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     MsgSchema,
-    Message,
-    Thread;
+    ThreadSchema;
 
 
 /**
@@ -17,10 +16,10 @@ var Schema = mongoose.Schema,
  */
 
 Thread = new Schema({
-  id            : { type: ObjectId },
-  from          : { type: ObjectId }, 
-  msg           : { type: String, required: true },
-  created_at    : { type: Date, required: true, index: true, default: Date.now }
+  id         : { type: ObjectId },
+  from       : { type: ObjectId }, 
+  msg        : { type: String, required: true },
+  created_at : { type: Date, default: Date.now }
 });
 
 
@@ -36,51 +35,10 @@ MsgSchema = new Schema({
   user2_viewed  : { type: Boolean, default: false, required: true }, 
   user1_deleted : { type: Boolean, default: false, required: true }, 
   user2_deleted : { type: Boolean, default: false, required: true },
-  threads       : { type: [Thread] }
+  threads       : { type: [ThreadSchema] }
 });
 
-
-/**
- * get all messages for the user - inbox view
- **/
-
-/*
-MsgSchema.statics.getAllMsg = function getAllMsg(user, cb) {
-  //return this.where('from_username', user).or('to_username', user).run(cb);
-  return this
-    .find()
-    .or([{ from_username: user }, { to_username: user }])
-    //.size(1)
-   // .distinct('from_username')
-    .desc('created_at')
-    .run(cb);
-};
-
-
-
-/**
- * send a message
- **/
-
-/*
-MsgSchema.statics.sendMsg = function sendMsg(args, cb) {
-  if 
-
-
-  //return this.where('from_username', user).or('to_username', user).run(cb);
-  return this
-    .find()
-    .or([{ from_username: user }, { to_username: user }])
-    //.size(1)
-   // .distinct('from_username')
-    .desc('created_at')
-    .run(cb);
-};
-
-
-*/
-
-Message = module.exports = mongoose.model('Message', MsgSchema);
+var Message = module.exports = mongoose.model('Message', MsgSchema);
 
 /*
 MsgSchema.pre('save', function (next) {

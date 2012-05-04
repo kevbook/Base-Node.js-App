@@ -42,6 +42,7 @@ app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(express.session({
 	secret :'y34hBuddyL1ghtW3ightB4by',
+ 	maxAge : new Date(Date.now() + 3600000),
 	store  : new sessionStore()
 	//{
 		//host:config.redis.host, 
