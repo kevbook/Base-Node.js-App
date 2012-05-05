@@ -1,4 +1,4 @@
-var User = require('../models/User'),
+var User = require('../models/user'),
 		config = require('../boot/config')(),
 		mailer = require('postage')(config.postageapp.apiKey),
 		helper = require('../boot/helper'),
@@ -23,7 +23,8 @@ exports.login = function(req, res) {
 
 exports.signup = function(req, res) {
 	res.render('auth/signup', { 
- 		locals:{ title: 'sign up', email:'', username:'' }
+ 		locals:{ title: 'sign up', email:'', username:'', firstname:'', lastname:'', 
+ 							zipcode: '', gender: 'male' }
   });
 };
 
@@ -59,62 +60,75 @@ exports.logout = function(req, res) {
 exports.doSignup = function(req, res, next) {
 	var viewOn = false,
 			data = {
+				profile: {
+					firstname: req.body.firstname, 
+					lastname: req.body.lastname, 
+					gender: req.body.gender, 
+					search_zip: req.body.zipcode, 
+				},
+				location: {
+					zipcode: req.body.zipcode,
+				}, 
 	 			email: req.body.email, 
 	  		password: req.body.password,
 	  		username: req.body.username,
 	  		last_login: new Date()
 			};
 
-	if (data.email === '' || data.password === '' || data.username === '') {
-	  req.flash('error', 'All fields are required.');
+	if (data.email === '' || data.password === '' || data.username === ''
+				|| data.profile.firstname === '' || data.profile.lastname === '' 
+				|| data.profile.gender === '' || data.profile.search_zip === '' ) {
+		req.flash('error', 'All fields are required.');
 	  viewOn = true;
 	} else if (! helper.isPassword(data.password)) {
-		req.flash('error', 'Password must be at least 5 characters.');
-	  viewOn = true;
-	} /*
-		else if (! helper.isMatch(data.password, req.body.password2)) {
-			req.flash('error', 'Password and Password Confirm must match.');
-	 	viewOn = true;
-		*/
-	else {
-		var user = new User(data);
-		user.pics.push({ pic_url: 'default.png', main_pic: true });
-		user.save(function(err, result) {
-			if(err){
-				logger.log('server_error', err + '- Email: ' + data.email); // log all errors anyways.
-				mongooseErrors(err, req, function(err) {
-					if(err) {
-						next(err);
+			req.flash('error', 'Password must be at least 5 characters.');
+	  	viewOn = true;
+	} else {
+		helper.zipToGeo(data.location.zipcode, function(error, geo){
+			console.log(error);
+			if(error){
+				req.flash('error', 'Please enter a valid zipcode.');
+				viewOn = true;
+			} else {
+				data.location.geo = geo;
+				var user = new User(data);
+				user.pics.push({ pic_url: 'default.png', main_pic: true });
+				user.save(function(err, result) {
+					if(err){
+						logger.log('server_error', err + '- Email: ' + data.email); // log all errors anyways.
+						mongooseErrors(err, req, function(err) {
+							if(err) {
+								next(err);
+							} else {			
+									res.render('auth/signup', { 
+							 			locals:{ title: 'sign up', email: data.email, username: data.username,
+							 							firstname: data.profile.firstname, lastname: data.profile.lastname, 
+							 							zipcode: data.location.zipcode , gender: data.profile.gender }
+									});
+						 		}
+							});	
 					} else {
-						res.render('auth/signup', { 
-				 			locals:{ title: 'sign up',
-				 				email: data.email,
-	 							username: data.username
-				 			}
-						});	
+						setSession(req, result);
+						mailer.send({
+							recipients:data.email, template:'welcome', variables:{username: data.username} }, function(error){
+								if(error) logger.log('email_send_error', error + '- Email: ' + data.email);
+						});
+						res.redirect('/user');
 					}
 				});
-			} else {
-				setSession(req, result);
-				mailer.send({
-					recipients:data.email, template:'welcome', variables:{username: data.username} }, function(error){
-						if(error) logger.log('email_send_error', error + '- Email: ' + data.email);
-				});
-				res.redirect('/user');
 			}
 		});
 	}
 
 	if (viewOn) {
 		res.render('auth/signup', { 
-	 		locals:{ title: 'sign up', 
-	 			email: data.email,
-	 			username: data.username
-	 		}
+	 		locals:{ title: 'sign up', email: data.email, username: data.username,
+	 							firstname: data.profile.firstname, lastname: data.profile.lastname, 
+	 							zipcode: data.location.zipcode , gender: data.profile.gender }
 		});
 	}
-};
 
+};
 
 
 /**

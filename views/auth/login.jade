@@ -1,8 +1,15 @@
 h1 login page
-
 form(method='post', action='/login')
-	input(type='text', id='email', name='email', placeholder='email')
-	input(type='password', id='password', name='password', placeholder='password')
-	input(type='submit', id='submit', class='button', value='login')
-	input(type='hidden', name='_csrf', value=csrf)
-	a(href='forgot') forgot password?
+	div.input.clearfix
+		label(for='email').label Email:
+		input(type='text', id='email', name='email', placeholder='Email')
+
+	div.input.clearfix
+		label(for='password').label	Password:
+		input(type='password', id='password', name='password', placeholder='Password')
+
+	div.input.clearfix
+		input(type='submit', id='submit', class='button', value='Login')
+		input(type='hidden', name='_csrf', value=csrf)
+	
+		a(href='/forgot')#forgot forgot password?

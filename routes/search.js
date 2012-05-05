@@ -1,4 +1,4 @@
-var User = require('../models/User'),
+var User = require('../models/user'),
 		config = require('../boot/config')(),
 		mailer = require('postage')(config.postageapp.apiKey),
 		helper = require('../boot/helper'),

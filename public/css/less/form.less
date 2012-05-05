@@ -1,8 +1,12 @@
 /* form elelments */
-@textWidth: 200px;
-@textHeight: 40px;
+@textWidth: 220px;
+@textHeight: 32px;
 
-input, textarea {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
   display: inline-block;
   margin: 0;
   font-size:15px;
@@ -11,22 +15,55 @@ input, textarea {
   color: #777;
   width: @textWidth;
   height: @textHeight;
-  .border-radius(0.3em);
+  .border-radius(3px);
   padding:0 7px;
-}
-
-input {
-  height: 32px;
+  outline: none;
 }
 
 textarea {
   padding:7px;
 }
 
-input:focus, textarea:focus {
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
   outline: 0;
   outline: thin dotted \9; /* IE6-9 */
   border:1px solid #ccc;
+}
+
+select {
+  padding: 0; 
+  width:textWidth;
+}
+
+.input .label {
+  font-size:16px;
+  width:100px;
+  margin-right:10px;
+  display: inline-block;
+}
+
+input[type="checkbox"] {
+  display: inline; 
+}
+
+input[type="radio"] {
+  border:0;
+  margin-right:7px;
+}
+
+.radio {
+  width:110px;
+  font-size:16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.input {
+  margin:25px auto 30px auto;
+  width: @textWidth + 132px
 }
 
 .button {

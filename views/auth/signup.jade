@@ -1,8 +1,39 @@
 h1 sign up page
 
 form(method='post', action='/signup')
-	input(type='text', id='email', name='email', placeholder='email', value=email)
-	input(type='password', id='password', name='password', placeholder='password')
-	input(type='text', id='username', name='username', placeholder='username', value=username)
-	input(type='submit', id='submit', class='button', value='sign up')
-	input(type='hidden', name='_csrf', value=csrf)
+	div.input.clearfix
+		label(for='firstname').label First Name:
+		input(type='text', id='firstname', name='firstname', placeholder='First Name', value=firstname)
+
+	div.input.clearfix
+		label(for='lastname').label Last Name:
+		input(type='text', id='lastname', name='lastname', placeholder='Last Name', value=lastname)
+
+	div.input.clearfix
+		label(for='email').label Email:
+		input(type='text', id='email', name='email', placeholder='Email', value=email)
+
+	div.input.clearfix
+		label(for='username').label Username:
+		input(type='text', id='username', name='username', placeholder='Username', value=username)
+
+	div.input.clearfix
+		label(for='password').label	Password:
+		input(type='password', id='password', name='password', placeholder='Password')
+
+	div.input.clearfix
+		label(for='male').label	Gender:
+		label.radio
+			input(type='radio', id='male', name='gender', value='male', checked)
+			span Male
+		label.radio
+			input(type='radio', id='female', name='gender', value='female', checked=gender=='female') 
+			span Female
+
+	div.input.clearfix
+		label(for='username').label Zip Code:
+		input(type='text', id='zipcode', name='zipcode', placeholder='Zip Code', value=zipcode)
+
+	div.input.clearfix
+		input(type='submit', id='submit', class='button', value='Sign Up')
+		input(type='hidden', name='_csrf', value=csrf)

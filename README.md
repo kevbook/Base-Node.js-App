@@ -1,5 +1,5 @@
 #Base Node.js App#
-***
+
 #####This is a base node.js app using:
 * connect and express
 * jade (html preprocessor)
@@ -11,7 +11,8 @@
 
 
 *any questions, suggestions to improve this* kevin.sakhuja@gmail.com   
-*twitter* [@kevbook](https://twitter.com/kevbook)
+*twitter* [@kevbook](https://twitter.com/kevbook)  
+
 ***
 
 #### Installation 

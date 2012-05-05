@@ -1,4 +1,4 @@
-var User = require('../models/User'),
+var User = require('../models/user'),
 		mailer = require('postage'),
     helper = require('../boot/helper'),
     logger = require('../boot/logger'),

@@ -127,3 +127,30 @@ exports.randomHash = function() {
 exports.toAge = function(dob) {
   return Math.floor(( (new Date() - new Date(dob)) / 1000 / (60 * 60 * 24) ) / 365.25 );
 };
+
+
+
+/**
+ * gets geo[lng, lat] using google API 
+ * @ argument zipcode
+ **/
+ 
+exports.zipToGeo = function(zipcode, callback) {
+  var geocoder = require('geocoder'), 
+      geo = []; 
+
+  if(/^[0-9]{3,5}$/.test(zipcode)) {
+    geocoder.geocode(zipcode, function (err, zipdata) {
+      if(err) {
+        callback(err, null);
+      } else {
+          geo.push(zipdata.results[0].geometry.location.lng);
+          geo.push(zipdata.results[0].geometry.location.lat);
+          callback(null, geo);
+      }
+    });
+  } else {
+    // google returned invalid zipcode
+    callback(true, null);
+  }
+};

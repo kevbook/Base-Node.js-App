@@ -1,8 +1,12 @@
 h1 forgot password page
 
 form(method='post', action='/forgot')
-	input(type='text', id='email', name='email', placeholder='email')
-	input(type='submit', id='submit', class='button', value='send')
-	input(type='hidden', name='_csrf', value=csrf)
-	a(href='login') back to login?
-	a(href='signup') sign up?
+	div.input.clearfix
+		label(for='email').label Email:
+		input(type='text', id='email', name='email', placeholder='Email')
+
+	div.input.clearfix
+		input(type='submit', id='submit', class='button', value='Send')
+		input(type='hidden', name='_csrf', value=csrf)
+	
+		a(href='/login')#forgot back to Login?
