@@ -43,7 +43,7 @@ html(lang='en')
 					img(src=assetUrl + 'img/logo.png' + assetVersion)
 				nav#header-nav.right
 					ul
-						- if(session.auth.logged === true)
+						- if(typeof session.auth !== 'undefined' && session.auth.logged === true)
 							li: a(href='/search') search
 							li: a(href='/messages') messages
 							li#nav-profile

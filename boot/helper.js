@@ -140,12 +140,12 @@ exports.zipToGeo = function(zipcode, callback) {
       geo = []; 
 
   if(/^[0-9]{3,5}$/.test(zipcode)) {
-    geocoder.geocode(zipcode, function (err, zipdata) {
+    geocoder.geocode(zipcode, function (err, geoData) {
       if(err) {
         callback(err, null);
       } else {
-          geo.push(zipdata.results[0].geometry.location.lng);
-          geo.push(zipdata.results[0].geometry.location.lat);
+          geo.push(geoData.results[0].geometry.location.lng);
+          geo.push(geoData.results[0].geometry.location.lat);
           callback(null, geo);
       }
     });

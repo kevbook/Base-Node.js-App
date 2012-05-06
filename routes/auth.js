@@ -297,6 +297,8 @@ function setSession(req, result) {
 		pic: result.pics,
 		age: result.profile.age || null
 	};
+
+	if(typeof req.session.auth === 'undefined') req.session.auth = {};
 	req.session.auth.logged = true;
 	req.session.auth.user = sessData;
 };
