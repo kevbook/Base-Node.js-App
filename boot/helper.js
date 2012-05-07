@@ -129,28 +129,29 @@ exports.toAge = function(dob) {
 };
 
 
-
 /**
- * gets geo[lng, lat] using google API 
+ * gets geo[lng, lat], city - using google API 
  * @ argument zipcode
  **/
  
 exports.zipToGeo = function(zipcode, callback) {
   var geocoder = require('geocoder'), 
-      geo = []; 
+      geo = [],
+      city; 
 
   if(/^[0-9]{3,5}$/.test(zipcode)) {
     geocoder.geocode(zipcode, function (err, geoData) {
       if(err) {
         callback(err, null);
       } else {
+          city = geoData.results[0].address_components[1].short_name;
           geo.push(geoData.results[0].geometry.location.lng);
           geo.push(geoData.results[0].geometry.location.lat);
-          callback(null, geo);
+          callback(null, geo, city);
       }
     });
   } else {
     // google returned invalid zipcode
-    callback(true, null);
+    callback(true, null, null);
   }
 };

@@ -41,7 +41,8 @@ UserSchema = new Schema({
     smoker      : { type: String },
     have_kids   : { type: String },
     want_kids   : { type: String },
-    search_zip  : { type: String }
+    search_zip  : { type: String },
+    city        : { type: String },
   }, 
   location  : {
     zipcode     : { type: String }, 

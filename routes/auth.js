@@ -84,13 +84,13 @@ exports.doSignup = function(req, res, next) {
 			req.flash('error', 'Password must be at least 5 characters.');
 	  	viewOn = true;
 	} else {
-		helper.zipToGeo(data.location.zipcode, function(error, geo){
-			console.log(error);
+		helper.zipToGeo(data.location.zipcode, function(error, geo, city){
 			if(error){
 				req.flash('error', 'Please enter a valid zipcode.');
 				viewOn = true;
 			} else {
 				data.location.geo = geo;
+				data.profile.city = city;
 				var user = new User(data);
 				user.pics.push({ pic_url: 'default.png', main_pic: true });
 				user.save(function(err, result) {
