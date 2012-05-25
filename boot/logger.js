@@ -1,31 +1,34 @@
-exports.log = function(input, msg, printAlso){
+/**
+ * module dependencies 
+ */
+ 
+var config = require('../config/config')(),
+		loggly = require('loggly'),
+		errorCodes = errCodes();
 
-	/**
-	 * module dependencies 
-	 */
-	 
-	var config = require('./config')(),
-			loggly = require('loggly'),
-			errorCodes = errCodes(),
-			client;
 
-	if(errorCodes[input] === undefined){
+/**
+ * Logger helper 
+ * @ Uses console logger for development environment
+ * @ Uses loggly.com for production environment
+ */
+
+exports.log = function(input, msg, printAlso) {
+	var client;
+
+	if(errorCodes[input] === undefined) {
 		console.log('Error: logger input-token is invalid');
-	}else{
-
-		if(process.env.NODE_ENV === undefined){
+	} else {
+		if(process.env.NODE_ENV === undefined) {
 		  console.log(msg);
-		}else{
+		} else if(process.env.NODE_ENV === 'production') {
 			client = loggly.createClient(config.loggly);
 			client.log(errorCodes[input], msg);
-
-			// prints to console as well.
-			if(printAlso){
-					console.log(msg);
-			}
+			if(printAlso) console.log(msg);
+		} else {
+		  console.log(msg);
 		}
 	}
-
 };
 
 
